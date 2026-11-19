@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#075985">
+  <meta name="theme-color" content="#3b28cc">
   <title>Meu Financeiro</title>
 
   <style>
@@ -12,121 +12,236 @@
       font-family: Arial, sans-serif;
     }
 
+    :root {
+      --primary: #3b28cc;
+      --primary-dark: #28199c;
+      --bg: #f3f4fa;
+      --card: #ffffff;
+      --text: #181826;
+      --muted: #66687a;
+      --green: #16803c;
+      --red: #c62828;
+      --border: #e3e5f0;
+    }
+
     body {
       margin: 0;
-      background: #eef6ff;
-      color: #123;
+      background: var(--bg);
+      color: var(--text);
     }
 
     header {
-      background: #075985;
-      color: white;
-      padding: 22px 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 20px 16px;
       text-align: center;
     }
 
     header h1 {
-      margin: 0 0 6px;
-      font-size: 25px;
+      margin: 0 0 4px;
+      font-size: 24px;
     }
 
     header p {
       margin: 0;
+      font-size: 14px;
       opacity: 0.9;
     }
 
     main {
-      max-width: 700px;
-      margin: auto;
-      padding: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 14px 14px 40px;
+    }
+
+    .nav-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tab-btn {
+      width: 100%;
+      margin: 0;
+      padding: 11px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .month-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+
+    .month-bar select {
+      width: auto;
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
     }
 
     .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .card {
-      background: white;
-      border-radius: 12px;
-      padding: 14px 8px;
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px 10px;
       text-align: center;
-      box-shadow: 0 2px 8px #0001;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px #00000008;
+    }
+
+    .card span {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: bold;
     }
 
     .card strong {
       display: block;
-      margin-top: 7px;
-      font-size: 16px;
+      margin-top: 6px;
+      font-size: 17px;
     }
 
-    .receita {
-      color: #16803c;
-    }
-
-    .despesa {
-      color: #c62828;
-    }
-
-    .saldo {
-      color: #075985;
-    }
+    .receita { color: var(--green); }
+    .despesa { color: var(--red); }
+    .saldo-pos { color: var(--primary); }
+    .saldo-neg { color: var(--red); }
 
     section {
-      background: white;
+      background: var(--card);
       padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px #0001;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px #00000008;
     }
 
     h2 {
-      color: #075985;
-      font-size: 20px;
-      margin-top: 0;
+      color: var(--primary);
+      font-size: 18px;
+      margin: 0 0 12px;
     }
 
     label {
       display: block;
       margin-top: 10px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
+      color: #333;
     }
 
     input, select, button {
       width: 100%;
-      padding: 12px;
+      padding: 11px 12px;
       margin-top: 5px;
-      border: 1px solid #b8c8d8;
-      border-radius: 8px;
-      font-size: 16px;
+      border: 1px solid #cfd3e6;
+      border-radius: 9px;
+      font-size: 15px;
+      background: #fff;
+      color: var(--text);
     }
 
     button {
-      background: #075985;
-      color: white;
+      background: var(--primary);
+      color: #fff;
       border: none;
-      margin-top: 15px;
+      margin-top: 14px;
       font-weight: bold;
       cursor: pointer;
     }
 
     button:hover {
-      background: #064b6e;
+      background: var(--primary-dark);
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .quick-box {
+      background: #f6f5ff;
+      border: 1px dashed var(--primary);
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .quick-actions button {
+      margin-top: 0;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .btn-secondary {
+      background: #4b4e6d;
+    }
+
+    .btn-secondary:hover {
+      background: #363850;
     }
 
     .btn-excluir {
       width: auto;
-      padding: 7px 10px;
-      margin: 0;
-      background: #c62828;
-      font-size: 13px;
+      padding: 6px 10px;
+      margin: 4px 0 0;
+      background: var(--red);
+      font-size: 12px;
+      border-radius: 7px;
+    }
+
+    .btn-abater {
+      width: auto;
+      padding: 6px 10px;
+      margin: 4px 6px 0 0;
+      background: var(--green);
+      font-size: 12px;
+      border-radius: 7px;
     }
 
     .item {
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid var(--border);
       padding: 12px 0;
       display: flex;
       justify-content: space-between;
@@ -140,130 +255,340 @@
 
     .item small {
       display: block;
-      color: #666;
-      margin-top: 4px;
+      color: var(--muted);
+      margin-top: 3px;
+      font-size: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: bold;
+      background: #eceaff;
+      color: var(--primary);
+      margin-right: 5px;
+    }
+
+    .cat-row {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .cat-row:last-child {
+      border-bottom: none;
+    }
+
+    .cat-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .bar-bg {
+      height: 8px;
+      background: #eceef7;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 999px;
     }
 
     .vazio {
-      color: #777;
+      color: var(--muted);
       text-align: center;
-      padding: 10px;
+      padding: 12px;
+      font-size: 14px;
     }
 
-    @media (max-width: 500px) {
-      .cards {
-        grid-template-columns: 1fr;
+    @media (max-width: 560px) {
+      .nav-tabs {
+        grid-template-columns: repeat(2, 1fr);
       }
-
-      .card {
-        padding: 12px;
+      .cards, .row-2 {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
-
 <body>
 
   <header>
     <h1>Meu Financeiro</h1>
-    <p>Controle de receitas, despesas e dívidas</p>
+    <p>Meses, categorias, empréstimos e lançamentos rápidos</p>
   </header>
 
   <main>
-
-    <div class="cards">
-      <div class="card">
-        Receitas
-        <strong class="receita" id="totalReceitas">R$ 0,00</strong>
-      </div>
-
-      <div class="card">
-        Despesas
-        <strong class="despesa" id="totalDespesas">R$ 0,00</strong>
-      </div>
-
-      <div class="card">
-        Saldo
-        <strong class="saldo" id="saldoAtual">R$ 0,00</strong>
-      </div>
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="abrirAba('mes', this)">Mês</button>
+      <button class="tab-btn" onclick="abrirAba('categorias', this)">Categorias</button>
+      <button class="tab-btn" onclick="abrirAba('emprestimos', this)">Empréstimos</button>
+      <button class="tab-btn" onclick="abrirAba('dados', this)">Backup</button>
     </div>
 
-    <section>
-      <h2>Novo lançamento</h2>
-
-      <label for="descricao">Descrição</label>
-      <input id="descricao" type="text" placeholder="Ex.: Salário, mercado, gasolina">
-
-      <label for="valor">Valor</label>
-      <input id="valor" type="number" step="0.01" placeholder="Ex.: 150">
-
-      <label for="tipo">Tipo</label>
-      <select id="tipo">
-        <option value="receita">Receita</option>
-        <option value="despesa">Despesa</option>
-      </select>
-
-      <label for="categoria">Categoria</label>
-      <select id="categoria">
-        <option>Salário</option>
-        <option>Renda extra</option>
-        <option>Alimentação</option>
-        <option>Transporte</option>
-        <option>Moradia</option>
-        <option>Educação</option>
-        <option>Dívida</option>
-        <option>Outros</option>
-      </select>
-
-      <label for="data">Data</label>
-      <input id="data" type="date">
-
-      <button onclick="adicionarLancamento()">Adicionar lançamento</button>
-    </section>
-
-    <section>
-      <h2>Lançamentos</h2>
-      <div id="listaLancamentos">
-        <p class="vazio">Nenhum lançamento cadastrado.</p>
+    <!-- ABA 1: MÊS -->
+    <div id="aba-mes" class="tab-panel active">
+      <div class="month-bar">
+        <strong>Mês selecionado:</strong>
+        <select id="seletorMes" onchange="mudarMesSelecionado()"></select>
       </div>
-    </section>
 
-    <section>
-      <h2>Dívidas e compromissos</h2>
-
-      <label for="nomeDivida">Nome da dívida</label>
-      <input id="nomeDivida" type="text" placeholder="Ex.: Joel, Corolla, escola">
-
-      <label for="valorDivida">Valor</label>
-      <input id="valorDivida" type="number" step="0.01" placeholder="Ex.: 1000">
-
-      <label for="vencimentoDivida">Vencimento</label>
-      <input id="vencimentoDivida" type="date">
-
-      <button onclick="adicionarDivida()">Adicionar dívida</button>
-
-      <div id="listaDividas">
-        <p class="vazio">Nenhuma dívida cadastrada.</p>
+      <div class="cards">
+        <div class="card">
+          <span>Receitas do mês</span>
+          <strong class="receita" id="totalReceitas">R$ 0,00</strong>
+        </div>
+        <div class="card">
+          <span>Despesas do mês</span>
+          <strong class="despesa" id="totalDespesas">R$ 0,00</strong>
+        </div>
+        <div class="card">
+          <span>Saldo do mês</span>
+          <strong id="saldoMes" class="saldo-pos">R$ 0,00</strong>
+        </div>
       </div>
-    </section>
 
-    <section>
-      <button onclick="apagarTudo()" style="background:#8b0000;">
-        Apagar todos os dados
-      </button>
-    </section>
+      <section>
+        <h2>Novo lançamento</h2>
 
+        <div class="quick-box">
+          <label for="textoRapido" style="margin-top:0;">Lançamento rápido por frase</label>
+          <input id="textoRapido" type="text" placeholder="Ex.: gastei 100 de gasolina ou recebi 1500 de salario">
+          <div class="quick-actions">
+            <button type="button" class="btn-secondary" onclick="interpretarFrase(false)">Preencher campos</button>
+            <button type="button" onclick="interpretarFrase(true)">Lançar direto</button>
+          </div>
+        </div>
+
+        <label for="descricao">Descrição / O que foi comprado</label>
+        <input id="descricao" type="text" placeholder="Ex.: Gasolina, mercado, salário...">
+
+        <div class="row-2">
+          <div>
+            <label for="valor">Valor (R$)</label>
+            <input id="valor" type="number" step="0.01" placeholder="Ex.: 100">
+          </div>
+          <div>
+            <label for="tipo">Tipo</label>
+            <select id="tipo">
+              <option value="despesa">Despesa</option>
+              <option value="receita">Receita</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div>
+            <label for="categoria">Categoria</label>
+            <select id="categoria">
+              <option value="Salário">Salário</option>
+              <option value="Renda extra">Renda extra</option>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Compras">Compras</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Educação">Educação</option>
+              <option value="Dívida">Dívida</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+          <div>
+            <label for="data">Data</label>
+            <input id="data" type="date">
+          </div>
+        </div>
+
+        <label for="hora">Hora</label>
+        <input id="hora" type="time">
+
+        <button type="button" onclick="adicionarLancamento()">Salvar lançamento no mês</button>
+      </section>
+
+      <section>
+        <h2>Lançamentos do mês (<span id="labelMesLista"></span>)</h2>
+        <div id="listaLancamentos"></div>
+      </section>
+    </div>
+
+    <!-- ABA 2: CATEGORIAS -->
+    <div id="aba-categorias" class="tab-panel">
+      <section>
+        <h2>Resumo por categoria (<span id="labelMesCat"></span>)</h2>
+        <div class="row-2" style="margin-bottom:10px;">
+          <div>
+            <label for="filtroTipoCat" style="margin-top:0;">Mostrar</label>
+            <select id="filtroTipoCat" onchange="atualizarCategorias()">
+              <option value="despesa">Despesas por categoria</option>
+              <option value="receita">Receitas por categoria</option>
+              <option value="todos">Todos os lançamentos</option>
+            </select>
+          </div>
+          <div>
+            <label for="filtroCatEspecifica" style="margin-top:0;">Filtrar categoria</label>
+            <select id="filtroCatEspecifica" onchange="atualizarCategorias()">
+              <option value="TODAS">Todas as categorias</option>
+              <option value="Salário">Salário</option>
+              <option value="Renda extra">Renda extra</option>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Compras">Compras</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Educação">Educação</option>
+              <option value="Dívida">Dívida</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+        </div>
+        <div id="resumoCategorias"></div>
+      </section>
+
+      <section>
+        <h2>Itens da categoria selecionada</h2>
+        <div id="listaPorCategoria"></div>
+      </section>
+    </div>
+
+    <!-- ABA 3: EMPRÉSTIMOS PESSOAIS -->
+    <div id="aba-emprestimos" class="tab-panel">
+      <div class="cards">
+        <div class="card">
+          <span>Total emprestado</span>
+          <strong id="totalEmprestado" class="saldo-pos">R$ 0,00</strong>
+        </div>
+        <div class="card">
+          <span>Total a receber (c/ juros)</span>
+          <strong id="totalReceberEmprestimo" class="receita">R$ 0,00</strong>
+        </div>
+        <div class="card">
+          <span>Falta receber</span>
+          <strong id="totalFaltaReceber" class="despesa">R$ 0,00</strong>
+        </div>
+      </div>
+
+      <section>
+        <h2>Novo empréstimo pessoal</h2>
+        <label for="pessoaEmprestimo">Para quem emprestou</label>
+        <input id="pessoaEmprestimo" type="text" placeholder="Ex.: João, Carlos...">
+
+        <div class="row-2">
+          <div>
+            <label for="valorEmprestado">Valor emprestado (R$)</label>
+            <input id="valorEmprestado" type="number" step="0.01" placeholder="Ex.: 1000">
+          </div>
+          <div>
+            <label for="jurosPercentual">Juros (%)</label>
+            <input id="jurosPercentual" type="number" step="0.01" placeholder="Ex.: 10 (ou 0)">
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div>
+            <label for="dataEmprestimo">Data do empréstimo</label>
+            <input id="dataEmprestimo" type="date">
+          </div>
+          <div>
+            <label for="obsEmprestimo">Observação / Combinado</label>
+            <input id="obsEmprestimo" type="text" placeholder="Ex.: Paga dia 10, 2x...">
+          </div>
+        </div>
+
+        <button type="button" onclick="adicionarEmprestimo()">Registrar empréstimo</button>
+      </section>
+
+      <section>
+        <h2>Empréstimos registrados</h2>
+        <div id="listaEmprestimos"></div>
+      </section>
+    </div>
+
+    <!-- ABA 4: BACKUP / DADOS -->
+    <div id="aba-dados" class="tab-panel">
+      <section>
+        <h2>Backup dos seus dados</h2>
+        <p style="font-size:14px;color:var(--muted);">
+          Salve um arquivo JSON para guardar todos os meses, categorias e empréstimos ou restaurar quando quiser.
+        </p>
+        <div class="row-2">
+          <button type="button" onclick="exportarBackup()">Exportar backup (JSON)</button>
+          <button type="button" class="btn-secondary" onclick="document.getElementById('arquivoBackup').click()">Importar backup</button>
+        </div>
+        <input type="file" id="arquivoBackup" accept=".json" style="display:none;" onchange="importarBackup(event)">
+      </section>
+
+      <section>
+        <h2>Zona de limpeza</h2>
+        <button type="button" style="background:#8b0000;" onclick="apagarTudo()">Apagar todos os dados</button>
+      </section>
+    </div>
   </main>
 
   <script>
-    let lancamentos = JSON.parse(localStorage.getItem("lancamentos")) || [];
-    let dividas = JSON.parse(localStorage.getItem("dividas")) || [];
+    const STORAGE_KEY = "meu_financeiro_v2";
 
-    document.getElementById("data").value =
-      new Date().toISOString().split("T")[0];
+    function obterMesAtualChave() {
+      const d = new Date();
+      const ano = d.getFullYear();
+      const mes = String(d.getMonth() + 1).padStart(2, "0");
+      return `${ano}-${mes}`;
+    }
+
+    function formatarChaveMes(chave) {
+      if (!chave || !chave.includes("-")) return chave || "";
+      const [ano, mes] = chave.split("-");
+      const nomes = {
+        "01": "Janeiro", "02": "Fevereiro", "03": "Março", "04": "Abril",
+        "05": "Maio", "06": "Junho", "07": "Julho", "08": "Agosto",
+        "09": "Setembro", "10": "Outubro", "11": "Novembro", "12": "Dezembro"
+      };
+      return `${nomes[mes] || mes}/${ano}`;
+    }
+
+    function carregarEstadoInicial() {
+      const salvo = localStorage.getItem(STORAGE_KEY);
+      if (salvo) {
+        return JSON.parse(salvo);
+      }
+
+      // Migra dados antigos se existirem
+      const antigosLanc = JSON.parse(localStorage.getItem("lancamentos")) || [];
+      const meses = {};
+      antigosLanc.forEach(item => {
+        const chave = (item.data && item.data.length >= 7)
+          ? item.data.slice(0, 7)
+          : obterMesAtualChave();
+        if (!meses[chave]) meses[chave] = [];
+        meses[chave].push({
+          ...item,
+          hora: item.hora || "00:00"
+        });
+      });
+
+      const mesAtual = obterMesAtualChave();
+      if (!meses[mesAtual]) meses[mesAtual] = [];
+
+      return {
+        mesSelecionado: mesAtual,
+        meses,
+        emprestimos: []
+      };
+    }
+
+    let estado = carregarEstadoInicial();
+
+    function salvarEstado() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
+    }
 
     function formatarMoeda(valor) {
-      return Number(valor).toLocaleString("pt-BR", {
+      return Number(valor || 0).toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL"
       });
@@ -272,190 +597,445 @@
     function formatarData(data) {
       if (!data) return "";
       const partes = data.split("-");
-      return partes[2] + "/" + partes[1] + "/" + partes[0];
+      if (partes.length !== 3) return data;
+      return `${partes[2]}/${partes[1]}/${partes[0]}`;
     }
 
-    function salvarDados() {
-      localStorage.setItem("lancamentos", JSON.stringify(lancamentos));
-      localStorage.setItem("dividas", JSON.stringify(dividas));
+    function preencherDataHoraPadrao() {
+      const agora = new Date();
+      const ano = agora.getFullYear();
+      const mes = String(agora.getMonth() + 1).padStart(2, "0");
+      const dia = String(agora.getDate()).padStart(2, "0");
+      const hora = String(agora.getHours()).padStart(2, "0");
+      const min = String(agora.getMinutes()).padStart(2, "0");
+
+      document.getElementById("data").value = `${ano}-${mes}-${dia}`;
+      document.getElementById("hora").value = `${hora}:${min}`;
+      document.getElementById("dataEmprestimo").value = `${ano}-${mes}-${dia}`;
+    }
+
+    function abrirAba(nomeAba, btn) {
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById(`aba-${nomeAba}`).classList.add("active");
+      if (btn) btn.classList.add("active");
+      atualizarTudo();
+    }
+
+    function garantirMes(chave) {
+      if (!estado.meses[chave]) {
+        estado.meses[chave] = [];
+      }
+    }
+
+    function atualizarSeletorMes() {
+      garantirMes(obterMesAtualChave());
+      garantirMes(estado.mesSelecionado);
+
+      const chaves = Object.keys(estado.meses).sort().reverse();
+      const select = document.getElementById("seletorMes");
+      select.innerHTML = "";
+
+      chaves.forEach(chave => {
+        const opt = document.createElement("option");
+        opt.value = chave;
+        opt.textContent = formatarChaveMes(chave);
+        if (chave === estado.mesSelecionado) opt.selected = true;
+        select.appendChild(opt);
+      });
+
+      const nomeFormatado = formatarChaveMes(estado.mesSelecionado);
+      document.getElementById("labelMesLista").textContent = nomeFormatado;
+      document.getElementById("labelMesCat").textContent = nomeFormatado;
+    }
+
+    function mudarMesSelecionado() {
+      estado.mesSelecionado = document.getElementById("seletorMes").value;
+      garantirMes(estado.mesSelecionado);
+      salvarEstado();
+      atualizarTudo();
+    }
+
+    function detectarCategoriaPorTexto(texto) {
+      const t = texto.toLowerCase();
+      if (t.includes("gasolina") || t.includes("alcool") || t.includes("álcool") || t.includes("diesel") || t.includes("uber") || t.includes("onibus") || t.includes("ônibus") || t.includes("carro") || t.includes("moto")) return "Transporte";
+      if (t.includes("mercado") || t.includes("lanche") || t.includes("almoco") || t.includes("almoço") || t.includes("jantar") || t.includes("comida") || t.includes("cafe") || t.includes("café") || t.includes("bebida")) return "Alimentação";
+      if (t.includes("salario") || t.includes("salário") || t.includes("pagamento")) return "Salário";
+      if (t.includes("extra") || t.includes("freela") || t.includes("comissao") || t.includes("comissão") || t.includes("venda")) return "Renda extra";
+      if (t.includes("casa") || t.includes("aluguel") || t.includes("luz") || t.includes("agua") || t.includes("água") || t.includes("obra") || t.includes("material")) return "Moradia";
+      if (t.includes("escola") || t.includes("faculdade") || t.includes("curso")) return "Educação";
+      if (t.includes("divida") || t.includes("dívida") || t.includes("parcela")) return "Dívida";
+      if (t.includes("roupa") || t.includes("tenis") || t.includes("tênis") || t.includes("celular") || t.includes("compra")) return "Compras";
+      return "Outros";
+    }
+
+    function interpretarFrase(lancarDireto) {
+      const frase = document.getElementById("textoRapido").value.trim();
+      if (!frase) {
+        alert("Digite uma frase rápida, ex.: gastei 100 de gasolina.");
+        return;
+      }
+
+      const matchValor = frase.match(/(\d+(?:[.,]\d{1,2})?)/);
+      if (!matchValor) {
+        alert("Não encontrei um valor numérico na frase.");
+        return;
+      }
+
+      const valor = parseFloat(matchValor[1].replace(",", "."));
+      const lower = frase.toLowerCase();
+      const ehReceita = lower.includes("recebi") || lower.includes("ganhei") || lower.includes("salario") || lower.includes("salário") || lower.includes("entrou");
+      const tipo = ehReceita ? "receita" : "despesa";
+      const categoria = detectarCategoriaPorTexto(frase);
+
+      const descLimpa = frase
+        .replace(/r\$\s*/gi, "")
+        .replace(matchValor[0], "")
+        .replace(/\b(gastei|paguei|comprei|coloquei|recebi|ganhei|de|do|da|em|no|na)\b/gi, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      preencherDataHoraPadrao();
+      document.getElementById("descricao").value = descLimpa || categoria;
+      document.getElementById("valor").value = valor.toFixed(2);
+      document.getElementById("tipo").value = tipo;
+      document.getElementById("categoria").value = categoria;
+
+      if (lancarDireto) {
+        adicionarLancamento();
+        document.getElementById("textoRapido").value = "";
+      }
     }
 
     function adicionarLancamento() {
       const descricao = document.getElementById("descricao").value.trim();
-      const valor = Number(document.getElementById("valor").value);
+      const valor = parseFloat(document.getElementById("valor").value);
       const tipo = document.getElementById("tipo").value;
       const categoria = document.getElementById("categoria").value;
       const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value || "00:00";
 
-      if (!descricao || !valor || valor <= 0 || !data) {
-        alert("Preencha a descrição, o valor e a data.");
+      if (!descricao || isNaN(valor) || valor <= 0 || !data) {
+        alert("Preencha descrição, valor maior que zero e data.");
         return;
       }
 
-      lancamentos.push({
-        id: Date.now(),
+      const chaveMes = data.slice(0, 7);
+      garantirMes(chaveMes);
+
+      estado.meses[chaveMes].push({
+        id: Date.now() + Math.random(),
         descricao,
         valor,
         tipo,
         categoria,
-        data
+        data,
+        hora
       });
 
-      salvarDados();
+      estado.mesSelecionado = chaveMes;
+      salvarEstado();
 
       document.getElementById("descricao").value = "";
       document.getElementById("valor").value = "";
-
-      atualizarTela();
+      atualizarTudo();
     }
 
-    function excluirLancamento(id) {
-      lancamentos = lancamentos.filter(item => item.id !== id);
-      salvarDados();
-      atualizarTela();
+    function excluirLancamento(chaveMes, id) {
+      if (!estado.meses[chaveMes]) return;
+      estado.meses[chaveMes] = estado.meses[chaveMes].filter(item => item.id !== id);
+      salvarEstado();
+      atualizarTudo();
     }
 
-    function adicionarDivida() {
-      const nome = document.getElementById("nomeDivida").value.trim();
-      const valor = Number(document.getElementById("valorDivida").value);
-      const vencimento = document.getElementById("vencimentoDivida").value;
+    function atualizarMes() {
+      atualizarSeletorMes();
+      const itens = estado.meses[estado.mesSelecionado] || [];
 
-      if (!nome || !valor || valor <= 0) {
-        alert("Preencha o nome e o valor da dívida.");
-        return;
-      }
-
-      dividas.push({
-        id: Date.now(),
-        nome,
-        valor,
-        vencimento
-      });
-
-      salvarDados();
-
-      document.getElementById("nomeDivida").value = "";
-      document.getElementById("valorDivida").value = "";
-      document.getElementById("vencimentoDivida").value = "";
-
-      atualizarTela();
-    }
-
-    function excluirDivida(id) {
-      dividas = dividas.filter(item => item.id !== id);
-      salvarDados();
-      atualizarTela();
-    }
-
-    function atualizarTela() {
       let receitas = 0;
       let despesas = 0;
 
-      lancamentos.forEach(item => {
-        if (item.tipo === "receita") {
-          receitas += item.valor;
-        } else {
-          despesas += item.valor;
-        }
+      itens.forEach(item => {
+        if (item.tipo === "receita") receitas += Number(item.valor);
+        else despesas += Number(item.valor);
       });
 
-      document.getElementById("totalReceitas").textContent =
-        formatarMoeda(receitas);
+      const saldo = receitas - despesas;
 
-      document.getElementById("totalDespesas").textContent =
-        formatarMoeda(despesas);
+      document.getElementById("totalReceitas").textContent = formatarMoeda(receitas);
+      document.getElementById("totalDespesas").textContent = formatarMoeda(despesas);
 
-      document.getElementById("saldoAtual").textContent =
-        formatarMoeda(receitas - despesas);
+      const elSaldo = document.getElementById("saldoMes");
+      elSaldo.textContent = formatarMoeda(saldo);
+      elSaldo.className = saldo >= 0 ? "saldo-pos" : "saldo-neg";
 
-      const listaLancamentos =
-        document.getElementById("listaLancamentos");
+      const lista = document.getElementById("listaLancamentos");
+      if (itens.length === 0) {
+        lista.innerHTML = '<p class="vazio">Nenhum lançamento neste mês.</p>';
+        return;
+      }
 
-      if (lancamentos.length === 0) {
-        listaLancamentos.innerHTML =
-          '<p class="vazio">Nenhum lançamento cadastrado.</p>';
+      lista.innerHTML = "";
+      [...itens].reverse().forEach(item => {
+        const cor = item.tipo === "receita" ? "receita" : "despesa";
+        const sinal = item.tipo === "receita" ? "+" : "-";
+        lista.innerHTML += `
+          <div class="item">
+            <div>
+              <strong>${item.descricao}</strong>
+              <small>
+                <span class="badge">${item.categoria}</span>
+                ${formatarData(item.data)} às ${item.hora || "00:00"}
+              </small>
+            </div>
+            <div style="text-align:right;">
+              <strong class="${cor}">${sinal} ${formatarMoeda(item.valor)}</strong>
+              <br>
+              <button type="button" class="btn-excluir" onclick="excluirLancamento('${estado.mesSelecionado}', ${item.id})">
+                Excluir
+              </button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function atualizarCategorias() {
+      const itens = estado.meses[estado.mesSelecionado] || [];
+      const tipoFiltro = document.getElementById("filtroTipoCat").value;
+      const catFiltro = document.getElementById("filtroCatEspecifica").value;
+
+      const filtradosPorTipo = itens.filter(item =>
+        tipoFiltro === "todos" ? true : item.tipo === tipoFiltro
+      );
+
+      const totaisPorCat = {};
+      let somaGeral = 0;
+
+      filtradosPorTipo.forEach(item => {
+        const v = Number(item.valor);
+        totaisPorCat[item.categoria] = (totaisPorCat[item.categoria] || 0) + v;
+        somaGeral += v;
+      });
+
+      const resumoEl = document.getElementById("resumoCategorias");
+      const entradasCat = Object.entries(totaisPorCat).sort((a, b) => b[1] - a[1]);
+
+      if (entradasCat.length === 0) {
+        resumoEl.innerHTML = '<p class="vazio">Sem movimentações para este filtro neste mês.</p>';
       } else {
-        listaLancamentos.innerHTML = "";
-
-        [...lancamentos].reverse().forEach(item => {
-          const cor = item.tipo === "receita" ? "receita" : "despesa";
-          const sinal = item.tipo === "receita" ? "+" : "-";
-
-          listaLancamentos.innerHTML += `
-            <div class="item">
-              <div>
-                <strong>${item.descricao}</strong>
-                <small>
-                  ${item.categoria} • ${formatarData(item.data)}
-                </small>
+        resumoEl.innerHTML = "";
+        entradasCat.forEach(([cat, total]) => {
+          const pct = somaGeral > 0 ? Math.round((total / somaGeral) * 100) : 0;
+          resumoEl.innerHTML += `
+            <div class="cat-row" onclick="selecionarCategoriaNaLista('${cat}')">
+              <div class="cat-top">
+                <span>${cat} (${pct}%)</span>
+                <span>${formatarMoeda(total)}</span>
               </div>
-
-              <div>
-                <strong class="${cor}">
-                  ${sinal} ${formatarMoeda(item.valor)}
-                </strong>
-                <br>
-                <button class="btn-excluir"
-                  onclick="excluirLancamento(${item.id})">
-                  Excluir
-                </button>
+              <div class="bar-bg">
+                <div class="bar-fill" style="width:${pct}%"></div>
               </div>
             </div>
           `;
         });
       }
 
-      const listaDividas = document.getElementById("listaDividas");
+      const itensDetalhe = filtradosPorTipo.filter(item =>
+        catFiltro === "TODAS" ? true : item.categoria === catFiltro
+      );
 
-      if (dividas.length === 0) {
-        listaDividas.innerHTML =
-          '<p class="vazio">Nenhuma dívida cadastrada.</p>';
-      } else {
-        listaDividas.innerHTML = "";
-
-        [...dividas].reverse().forEach(item => {
-          listaDividas.innerHTML += `
-            <div class="item">
-              <div>
-                <strong>${item.nome}</strong>
-                <small>
-                  Vencimento: ${item.vencimento
-                    ? formatarData(item.vencimento)
-                    : "não informado"}
-                </small>
-              </div>
-
-              <div>
-                <strong class="despesa">
-                  ${formatarMoeda(item.valor)}
-                </strong>
-                <br>
-                <button class="btn-excluir"
-                  onclick="excluirDivida(${item.id})">
-                  Excluir
-                </button>
-              </div>
-            </div>
-          `;
-        });
+      const listaCatEl = document.getElementById("listaPorCategoria");
+      if (itensDetalhe.length === 0) {
+        listaCatEl.innerHTML = '<p class="vazio">Nenhum item encontrado nessa categoria.</p>';
+        return;
       }
+
+      listaCatEl.innerHTML = "";
+      [...itensDetalhe].reverse().forEach(item => {
+        const cor = item.tipo === "receita" ? "receita" : "despesa";
+        const sinal = item.tipo === "receita" ? "+" : "-";
+        listaCatEl.innerHTML += `
+          <div class="item">
+            <div>
+              <strong>${item.descricao}</strong>
+              <small><span class="badge">${item.categoria}</span> ${formatarData(item.data)} às ${item.hora || "00:00"}</small>
+            </div>
+            <strong class="${cor}">${sinal} ${formatarMoeda(item.valor)}</strong>
+          </div>
+        `;
+      });
+    }
+
+    function selecionarCategoriaNaLista(cat) {
+      document.getElementById("filtroCatEspecifica").value = cat;
+      atualizarCategorias();
+    }
+
+    function adicionarEmprestimo() {
+      const pessoa = document.getElementById("pessoaEmprestimo").value.trim();
+      const valorPrincipal = parseFloat(document.getElementById("valorEmprestado").value);
+      const jurosPct = parseFloat(document.getElementById("jurosPercentual").value) || 0;
+      const data = document.getElementById("dataEmprestimo").value;
+      const obs = document.getElementById("obsEmprestimo").value.trim();
+
+      if (!pessoa || isNaN(valorPrincipal) || valorPrincipal <= 0) {
+        alert("Informe o nome da pessoa e o valor emprestado.");
+        return;
+      }
+
+      const valorJuros = valorPrincipal * (jurosPct / 100);
+      const totalComJuros = valorPrincipal + valorJuros;
+
+      estado.emprestimos.push({
+        id: Date.now() + Math.random(),
+        pessoa,
+        valorPrincipal,
+        jurosPct,
+        valorJuros,
+        totalComJuros,
+        valorPago: 0,
+        data: data || new Date().toISOString().split("T")[0],
+        obs
+      });
+
+      salvarEstado();
+      document.getElementById("pessoaEmprestimo").value = "";
+      document.getElementById("valorEmprestado").value = "";
+      document.getElementById("jurosPercentual").value = "";
+      document.getElementById("obsEmprestimo").value = "";
+      atualizarEmprestimos();
+    }
+
+    function registrarPagamentoEmprestimo(id) {
+      const emp = estado.emprestimos.find(e => e.id === id);
+      if (!emp) return;
+
+      const restante = Math.max(0, emp.totalComJuros - emp.valorPago);
+      const entrada = prompt(`Quanto ${emp.pessoa} pagou agora? (Falta receber: ${formatarMoeda(restante)})`, restante.toFixed(2));
+      if (entrada === null) return;
+
+      const valorPg = parseFloat(entrada.replace(",", "."));
+      if (isNaN(valorPg) || valorPg <= 0) {
+        alert("Valor inválido.");
+        return;
+      }
+
+      emp.valorPago = Math.min(emp.totalComJuros, emp.valorPago + valorPg);
+      salvarEstado();
+      atualizarEmprestimos();
+    }
+
+    function excluirEmprestimo(id) {
+      estado.emprestimos = estado.emprestimos.filter(e => e.id !== id);
+      salvarEstado();
+      atualizarEmprestimos();
+    }
+
+    function atualizarEmprestimos() {
+      let totalEmp = 0;
+      let totalRec = 0;
+      let totalFalta = 0;
+
+      estado.emprestimos.forEach(e => {
+        const falta = Math.max(0, e.totalComJuros - e.valorPago);
+        totalEmp += Number(e.valorPrincipal);
+        totalRec += Number(e.totalComJuros);
+        totalFalta += falta;
+      });
+
+      document.getElementById("totalEmprestado").textContent = formatarMoeda(totalEmp);
+      document.getElementById("totalReceberEmprestimo").textContent = formatarMoeda(totalRec);
+      document.getElementById("totalFaltaReceber").textContent = formatarMoeda(totalFalta);
+
+      const lista = document.getElementById("listaEmprestimos");
+      if (estado.emprestimos.length === 0) {
+        lista.innerHTML = '<p class="vazio">Nenhum empréstimo pessoal registrado.</p>';
+        return;
+      }
+
+      lista.innerHTML = "";
+      [...estado.emprestimos].reverse().forEach(e => {
+        const falta = Math.max(0, e.totalComJuros - e.valorPago);
+        const quitado = falta <= 0.009;
+
+        lista.innerHTML += `
+          <div class="item">
+            <div>
+              <strong>${e.pessoa}</strong>
+              <small>
+                Emprestado: ${formatarMoeda(e.valorPrincipal)} • Juros: ${e.jurosPct}% (${formatarMoeda(e.valorJuros)}) • Data: ${formatarData(e.data)}
+              </small>
+              <small>
+                Total c/ juros: <strong>${formatarMoeda(e.totalComJuros)}</strong> • Pago: ${formatarMoeda(e.valorPago)} ${e.obs ? "• " + e.obs : ""}
+              </small>
+            </div>
+            <div style="text-align:right;">
+              <strong class="${quitado ? "receita" : "despesa"}">
+                ${quitado ? "Quitado" : "Falta " + formatarMoeda(falta)}
+              </strong>
+              <br>
+              ${!quitado ? `<button type="button" class="btn-abater" onclick="registrarPagamentoEmprestimo(${e.id})">Receber</button>` : ""}
+              <button type="button" class="btn-excluir" onclick="excluirEmprestimo(${e.id})">Excluir</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function exportarBackup() {
+      const blob = new Blob([JSON.stringify(estado, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `meu-financeiro-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importarBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const dados = JSON.parse(e.target.result);
+          if (!dados.meses || !Array.isArray(dados.emprestimos)) {
+            alert("Arquivo de backup inválido.");
+            return;
+          }
+          estado = dados;
+          salvarEstado();
+          atualizarTudo();
+          alert("Backup restaurado com sucesso!");
+        } catch {
+          alert("Erro ao ler o arquivo JSON.");
+        }
+      };
+      reader.readAsText(file);
     }
 
     function apagarTudo() {
-      const confirmar = confirm(
-        "Tem certeza que deseja apagar todos os lançamentos e dívidas?"
-      );
-
-      if (confirmar) {
-        lancamentos = [];
-        dividas = [];
-        salvarDados();
-        atualizarTela();
-      }
+      if (!confirm("Tem certeza que deseja apagar todos os meses, categorias e empréstimos?")) return;
+      const atual = obterMesAtualChave();
+      estado = {
+        mesSelecionado: atual,
+        meses: { [atual]: [] },
+        emprestimos: []
+      };
+      salvarEstado();
+      atualizarTudo();
     }
 
-    atualizarTela();
-  </script>
+    function atualizarTudo() {
+      atualizarMes();
+      atualizarCategorias();
+      atualizarEmprestimos();
+    }
 
+    preencherDataHoraPadrao();
+    atualizarTudo();
+  </script>
 </body>
 </html>
