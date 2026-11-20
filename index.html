@@ -367,10 +367,937 @@
 
   <main>
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="abrirAba('mes', this)">Mês</button>
-      <button class="tab-btn" onclick="abrirAba('categorias', this)">Categorias</button>
-      <button class="tab-btn" onclick="abrirAba('emprestimos', this)">Empréstimos</button>
-      <button class="tab-btn" onclick="abrirAba('dados', this)">Backup</button>
+      <button type="button" class="tab-btn active" onclick="abrirAba('mes', this)">Mês</button>
+      <button type="button" class="tab-btn" onclick="abrirAba('categorias', this)">Categorias</button>
+      <button type="button" class="tab-btn" onclick="abrirAba('emprestimos', this)">Empréstimos</button>
+      <button type="button" class="tab-btn" onclick="abrirAba('dados', this)">Backup</button>
     </div>
 
     <!-- ABA 1: MÊS -->
+    <div id="aba-mes" class="tab-panel active">
+      <div class="month-bar">
+        <strong>Mês selecionado:</strong>
+        <select id="seletorMes" onchange="mudarMesSelecionado()"></select>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <span>Receitas do mês</span>
+          <strong class="receita" id="totalReceitas">R$ 0,00</strong>
+        </div>
+        <div class="card">
+          <span>Despesas do mês</span>
+          <strong class="despesa" id="totalDespesas">R$ 0,00</strong>
+        </div>
+        <div class="card">
+          <span>Saldo do mês</span>
+          <strong id="saldoMes" class="saldo-pos">R$ 0,00</strong>
+        </div>
+      </div>
+
+      <section>
+        <h2 id="tituloFormLancamento">Novo lançamento</h2>
+        <input type="hidden" id="editMesLancamento">
+        <input type="hidden" id="editIdLancamento">
+
+        <div class="quick-box">
+          <label for="textoRapido" style="margin-top:0;">Lançamento rápido por frase</label>
+          <input id="textoRapido" type="text" placeholder="Ex.: gastei 100 de gasolina ou recebi 1500 de salario">
+          <div class="quick-actions">
+            <button type="button" class="btn-secondary" onclick="interpretarFrase(false)">Preencher campos</button>
+            <button type="button" onclick="interpretarFrase(true)">Lançar direto</button>
+          </div>
+        </div>
+
+        <label for="descricao">Descrição / O que foi comprado</label>
+        <input id="descricao" type="text" placeholder="Ex.: Gasolina, mercado, salário...">
+
+        <div class="row-2">
+          <div>
+            <label for="valor">Valor (R$)</label>
+            <input id="valor" type="number" step="0.01" placeholder="Ex.: 100">
+          </div>
+          <div>
+            <label for="tipo">Tipo</label>
+            <select id="tipo" onchange="ajustarStatusPadraoPorTipo()">
+              <option value="despesa">Despesa / Custo</option>
+              <option value="receita">Receita</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div>
+            <label for="categoria">Categoria</label>
+            <select id="categoria">
+              <option value="Salário">Salário</option>
+              <option value="Renda extra">Renda extra</option>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Compras">Compras</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Educação">Educação</option>
+              <option value="Dívida">Dívida</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+          <div>
+            <label for="statusLancamento">Status de pagamento</label>
+            <select id="statusLancamento">
+              <option value="pago">Pago / Recebido</option>
+              <option value="pendente">Pendente / A pagar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div>
+            <label for="data">Data (entra na sequência)</label>
+            <input id="data" type="date">
+          </div>
+          <div>
+            <label for="hora">Hora</label>
+            <input id="hora" type="time">
+          </div>
+        </div>
+
+        <div class="row-2">
+          <button type="button" id="btnSalvarLancamento" onclick="salvarLancamento()">Salvar lançamento no mês</button>
+          <button type="button" id="btnCancelarEdicaoLanc" class="btn-secondary" style="display:none;" onclick="cancelarEdicaoLancamento()">Cancelar edição</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Lançamentos do mês (<span id="labelMesLista"></span>)</h2>
+        <div id="listaLancamentos"></div>
+      </section>
+    </div>
+
+    <!-- ABA 2: CATEGORIAS -->
+    <div id="aba-categorias" class="tab-panel">
+      <section>
+        <h2>Resumo por categoria (<span id="labelMesCat"></span>)</h2>
+        <div class="row-2" style="margin-bottom:10px;">
+          <div>
+            <label for="filtroTipoCat" style="margin-top:0;">Mostrar</label>
+            <select id="filtroTipoCat" onchange="atualizarCategorias()">
+              <option value="despesa">Despesas por categoria</option>
+              <option value="receita">Receitas por categoria</option>
+              <option value="todos">Todos os lançamentos</option>
+            </select>
+          </div>
+          <div>
+            <label for="filtroCatEspecifica" style="margin-top:0;">Filtrar categoria</label>
+            <select id="filtroCatEspecifica" onchange="atualizarCategorias()">
+              <option value="TODAS">Todas as categorias</option>
+              <option value="Salário">Salário</option>
+              <option value="Renda extra">Renda extra</option>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Compras">Compras</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Educação">Educação</option>
+              <option value="Dívida">Dívida</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+        </div>
+        <div id="resumoCategorias"></div>
+      </section>
+
+      <section>
+        <h2>Itens da categoria selecionada</h2>
+        <div id="listaPorCategoria"></div>
+      </section>
+    </div>
+
+    <!-- ABA 3: EMPRÉSTIMOS PESSOAIS -->
+    <div id="aba-emprestimos" class="tab-panel">
+      <div class="cards">
+        <div class="card">
+          <span>Total emprestado</span>
+          <strong id="totalEmprestado" class="saldo-pos">R$ 0,00</strong>
+        </div>
+        <div class="card">
+          <span>Total a receber (c/ juros)</span>
+          <strong id="totalReceberEmprestimo" class="receita">R$ 0,00</strong>
+        </div>
+        <div class="card">
+          <span>Falta receber</span>
+          <strong id="totalFaltaReceber" class="despesa">R$ 0,00</strong>
+        </div>
+      </div>
+
+      <section>
+        <h2 id="tituloFormEmprestimo">Novo empréstimo / compromisso</h2>
+        <input type="hidden" id="editIdEmprestimo">
+
+        <label for="pessoaEmprestimo">Nome / Pessoa / Referência</label>
+        <input id="pessoaEmprestimo" type="text" placeholder="Ex.: João, Carlos, acerto atrasado...">
+
+        <div class="row-2">
+          <div>
+            <label for="valorEmprestado">Valor (R$)</label>
+            <input id="valorEmprestado" type="number" step="0.01" placeholder="Ex.: 1000">
+          </div>
+          <div>
+            <label for="jurosPercentual">Juros (%)</label>
+            <input id="jurosPercentual" type="number" step="0.01" placeholder="Ex.: 10 (ou 0)">
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div>
+            <label for="dataEmprestimo">Data / Vencimento (entra na ordem)</label>
+            <input id="dataEmprestimo" type="date">
+          </div>
+          <div>
+            <label for="obsEmprestimo">Observação / Combinado</label>
+            <input id="obsEmprestimo" type="text" placeholder="Ex.: Paga dia 10, 2x...">
+          </div>
+        </div>
+
+        <div class="row-2">
+          <button type="button" id="btnSalvarEmprestimo" onclick="salvarEmprestimo()">Registrar empréstimo</button>
+          <button type="button" id="btnCancelarEdicaoEmp" class="btn-secondary" style="display:none;" onclick="cancelarEdicaoEmprestimo()">Cancelar edição</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Empréstimos separados por mês (em ordem de data)</h2>
+        <div id="listaEmprestimos"></div>
+      </section>
+    </div>
+
+    <!-- ABA 4: BACKUP / DADOS -->
+    <div id="aba-dados" class="tab-panel">
+      <section>
+        <h2>Backup dos seus dados</h2>
+        <p style="font-size:14px;color:var(--muted);">
+          Salve um arquivo JSON para guardar todos os meses, categorias e empréstimos ou restaurar quando quiser.
+        </p>
+        <div class="row-2">
+          <button type="button" onclick="exportarBackup()">Exportar backup (JSON)</button>
+          <button type="button" class="btn-secondary" onclick="document.getElementById('arquivoBackup').click()">Importar backup</button>
+        </div>
+        <input type="file" id="arquivoBackup" accept=".json" style="display:none;" onchange="importarBackup(event)">
+      </section>
+
+      <section>
+        <h2>Zona de limpeza</h2>
+        <button type="button" style="background:#8b0000;" onclick="apagarTudo()">Apagar todos os dados</button>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "meu_financeiro_v2";
+
+    function obterMesAtualChave() {
+      const d = new Date();
+      const ano = d.getFullYear();
+      const mes = String(d.getMonth() + 1).padStart(2, "0");
+      return `${ano}-${mes}`;
+    }
+
+    function obterChaveMesDeData(dataStr) {
+      if (typeof dataStr === "string" && dataStr.length >= 7) return dataStr.slice(0, 7);
+      return obterMesAtualChave();
+    }
+
+    function formatarChaveMes(chave) {
+      if (typeof chave !== "string" || !chave.includes("-")) return chave || "Sem data";
+      const [ano, mes] = chave.split("-");
+      const nomes = {
+        "01": "Janeiro", "02": "Fevereiro", "03": "Março", "04": "Abril",
+        "05": "Maio", "06": "Junho", "07": "Julho", "08": "Agosto",
+        "09": "Setembro", "10": "Outubro", "11": "Novembro", "12": "Dezembro"
+      };
+      return `${nomes[mes] || mes}/${ano}`;
+    }
+
+    function parseJsonSeguro(chave, padrao) {
+      try {
+        const raw = localStorage.getItem(chave);
+        if (!raw) return padrao;
+        const parsed = JSON.parse(raw);
+        return parsed ?? padrao;
+      } catch {
+        return padrao;
+      }
+    }
+
+    function carregarEstadoInicial() {
+      const mesAtual = obterMesAtualChave();
+      const salvo = parseJsonSeguro(STORAGE_KEY, null);
+
+      if (salvo && typeof salvo === "object") {
+        const mesesLimpos = {};
+        if (salvo.meses && typeof salvo.meses === "object") {
+          Object.entries(salvo.meses).forEach(([k, arr]) => {
+            if (Array.isArray(arr)) {
+              mesesLimpos[k] = arr.filter(i => i && typeof i === "object").map(i => ({
+                id: i.id ?? (Date.now() + Math.random()),
+                descricao: String(i.descricao || "Sem descrição"),
+                valor: Number(i.valor) || 0,
+                tipo: i.tipo === "receita" ? "receita" : "despesa",
+                categoria: String(i.categoria || "Outros"),
+                status: i.status === "pendente" ? "pendente" : "pago",
+                data: String(i.data || `${mesAtual}-01`),
+                hora: String(i.hora || "00:00")
+              }));
+            }
+          });
+        }
+        if (!mesesLimpos[mesAtual]) mesesLimpos[mesAtual] = [];
+
+        const emprestimosLimpos = Array.isArray(salvo.emprestimos)
+          ? salvo.emprestimos.filter(e => e && typeof e === "object").map(e => {
+              const principal = Number(e.valorPrincipal) || 0;
+              const jurosPct = Number(e.jurosPct) || 0;
+              const valorJuros = Number(e.valorJuros ?? (principal * (jurosPct / 100))) || 0;
+              const totalComJuros = Number(e.totalComJuros ?? (principal + valorJuros)) || 0;
+              return {
+                id: e.id ?? (Date.now() + Math.random()),
+                pessoa: String(e.pessoa || "Sem nome"),
+                valorPrincipal: principal,
+                jurosPct,
+                valorJuros,
+                totalComJuros,
+                valorPago: Number(e.valorPago) || 0,
+                data: String(e.data || `${mesAtual}-01`),
+                obs: String(e.obs || "")
+              };
+            })
+          : [];
+
+        const mesSel = (typeof salvo.mesSelecionado === "string" && mesesLimpos[salvo.mesSelecionado])
+          ? salvo.mesSelecionado
+          : mesAtual;
+
+        return {
+          mesSelecionado: mesSel,
+          meses: mesesLimpos,
+          emprestimos: emprestimosLimpos
+        };
+      }
+
+      const antigosLanc = parseJsonSeguro("lancamentos", []);
+      const meses = {};
+      if (Array.isArray(antigosLanc)) {
+        antigosLanc.forEach(item => {
+          if (!item || typeof item !== "object") return;
+          const chave = obterChaveMesDeData(item.data);
+          if (!meses[chave]) meses[chave] = [];
+          meses[chave].push({
+            id: item.id ?? (Date.now() + Math.random()),
+            descricao: String(item.descricao || "Sem descrição"),
+            valor: Number(item.valor) || 0,
+            tipo: item.tipo === "receita" ? "receita" : "despesa",
+            categoria: String(item.categoria || "Outros"),
+            status: item.status === "pendente" ? "pendente" : "pago",
+            data: String(item.data || `${mesAtual}-01`),
+            hora: String(item.hora || "00:00")
+          });
+        });
+      }
+      if (!meses[mesAtual]) meses[mesAtual] = [];
+
+      return {
+        mesSelecionado: mesAtual,
+        meses,
+        emprestimos: []
+      };
+    }
+
+    let estado = carregarEstadoInicial();
+
+    function salvarEstado() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
+      } catch (e) {
+        console.error("Erro ao salvar:", e);
+      }
+    }
+
+    function formatarMoeda(valor) {
+      return Number(valor || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function formatarData(data) {
+      if (!data) return "";
+      const partes = String(data).split("-");
+      if (partes.length !== 3) return String(data);
+      return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    }
+
+    function preencherDataHoraPadrao() {
+      const agora = new Date();
+      const ano = agora.getFullYear();
+      const mes = String(agora.getMonth() + 1).padStart(2, "0");
+      const dia = String(agora.getDate()).padStart(2, "0");
+      const hora = String(agora.getHours()).padStart(2, "0");
+      const min = String(agora.getMinutes()).padStart(2, "0");
+
+      const elData = document.getElementById("data");
+      const elHora = document.getElementById("hora");
+      const elEmpData = document.getElementById("dataEmprestimo");
+
+      if (elData) elData.value = `${ano}-${mes}-${dia}`;
+      if (elHora) elHora.value = `${hora}:${min}`;
+      if (elEmpData) elEmpData.value = `${ano}-${mes}-${dia}`;
+    }
+
+    function ajustarStatusPadraoPorTipo() {
+      const editId = document.getElementById("editIdLancamento")?.value;
+      if (editId) return;
+      const tipo = document.getElementById("tipo")?.value;
+      const elStatus = document.getElementById("statusLancamento");
+      if (elStatus) {
+        elStatus.value = tipo === "despesa" ? "pendente" : "pago";
+      }
+    }
+
+    function abrirAba(nomeAba, btn) {
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      const painel = document.getElementById(`aba-${nomeAba}`);
+      if (painel) painel.classList.add("active");
+      if (btn) btn.classList.add("active");
+      atualizarTudo();
+    }
+
+    function garantirMes(chave) {
+      if (!chave) return;
+      if (!Array.isArray(estado.meses[chave])) {
+        estado.meses[chave] = [];
+      }
+    }
+
+    function atualizarSeletorMes() {
+      garantirMes(obterMesAtualChave());
+      garantirMes(estado.mesSelecionado);
+
+      const chaves = Object.keys(estado.meses).sort().reverse();
+      const select = document.getElementById("seletorMes");
+      if (select) {
+        select.innerHTML = "";
+        chaves.forEach(chave => {
+          const opt = document.createElement("option");
+          opt.value = chave;
+          opt.textContent = formatarChaveMes(chave);
+          if (chave === estado.mesSelecionado) opt.selected = true;
+          select.appendChild(opt);
+        });
+      }
+
+      const nomeFormatado = formatarChaveMes(estado.mesSelecionado);
+      const lblLista = document.getElementById("labelMesLista");
+      const lblCat = document.getElementById("labelMesCat");
+      if (lblLista) lblLista.textContent = nomeFormatado;
+      if (lblCat) lblCat.textContent = nomeFormatado;
+    }
+
+    function mudarMesSelecionado() {
+      const select = document.getElementById("seletorMes");
+      if (!select) return;
+      estado.mesSelecionado = select.value;
+      garantirMes(estado.mesSelecionado);
+      salvarEstado();
+      atualizarTudo();
+    }
+
+    function detectarCategoriaPorTexto(texto) {
+      const t = texto.toLowerCase();
+      if (t.includes("gasolina") || t.includes("alcool") || t.includes("álcool") || t.includes("diesel") || t.includes("uber") || t.includes("onibus") || t.includes("ônibus") || t.includes("carro") || t.includes("moto")) return "Transporte";
+      if (t.includes("mercado") || t.includes("lanche") || t.includes("almoco") || t.includes("almoço") || t.includes("jantar") || t.includes("comida") || t.includes("cafe") || t.includes("café") || t.includes("bebida")) return "Alimentação";
+      if (t.includes("salario") || t.includes("salário") || t.includes("pagamento")) return "Salário";
+      if (t.includes("extra") || t.includes("freela") || t.includes("comissao") || t.includes("comissão") || t.includes("venda")) return "Renda extra";
+      if (t.includes("casa") || t.includes("aluguel") || t.includes("luz") || t.includes("agua") || t.includes("água") || t.includes("obra") || t.includes("material")) return "Moradia";
+      if (t.includes("escola") || t.includes("faculdade") || t.includes("curso")) return "Educação";
+      if (t.includes("divida") || t.includes("dívida") || t.includes("parcela")) return "Dívida";
+      if (t.includes("roupa") || t.includes("tenis") || t.includes("tênis") || t.includes("celular") || t.includes("compra")) return "Compras";
+      return "Outros";
+    }
+
+    function interpretarFrase(lancarDireto) {
+      const frase = (document.getElementById("textoRapido")?.value || "").trim();
+      if (!frase) {
+        alert("Digite uma frase rápida, ex.: gastei 100 de gasolina.");
+        return;
+      }
+
+      const matchValor = frase.match(/(\d+(?:[.,]\d{1,2})?)/);
+      if (!matchValor) {
+        alert("Não encontrei um valor numérico na frase.");
+        return;
+      }
+
+      const valor = parseFloat(matchValor[1].replace(",", "."));
+      const lower = frase.toLowerCase();
+      const ehReceita = lower.includes("recebi") || lower.includes("ganhei") || lower.includes("salario") || lower.includes("salário") || lower.includes("entrou");
+      const tipo = ehReceita ? "receita" : "despesa";
+      const categoria = detectarCategoriaPorTexto(frase);
+
+      const descLimpa = frase
+        .replace(/r\$\s*/gi, "")
+        .replace(matchValor[0], "")
+        .replace(/\b(gastei|paguei|comprei|coloquei|recebi|ganhei|de|do|da|em|no|na)\b/gi, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      preencherDataHoraPadrao();
+      document.getElementById("descricao").value = descLimpa || categoria;
+      document.getElementById("valor").value = valor.toFixed(2);
+      document.getElementById("tipo").value = tipo;
+      document.getElementById("categoria").value = categoria;
+      document.getElementById("statusLancamento").value = "pago";
+
+      if (lancarDireto) {
+        salvarLancamento();
+        document.getElementById("textoRapido").value = "";
+      }
+    }
+
+    function resetarFormularioLancamento() {
+      document.getElementById("editMesLancamento").value = "";
+      document.getElementById("editIdLancamento").value = "";
+      document.getElementById("tituloFormLancamento").textContent = "Novo lançamento";
+      document.getElementById("btnSalvarLancamento").textContent = "Salvar lançamento no mês";
+      document.getElementById("btnCancelarEdicaoLanc").style.display = "none";
+      document.getElementById("descricao").value = "";
+      document.getElementById("valor").value = "";
+      document.getElementById("tipo").value = "despesa";
+      document.getElementById("statusLancamento").value = "pendente";
+      preencherDataHoraPadrao();
+    }
+
+    function cancelarEdicaoLancamento() {
+      resetarFormularioLancamento();
+    }
+
+    function salvarLancamento() {
+      const editMes = document.getElementById("editMesLancamento").value;
+      const editId = document.getElementById("editIdLancamento").value;
+
+      const descricao = document.getElementById("descricao").value.trim();
+      const valor = parseFloat(document.getElementById("valor").value);
+      const tipo = document.getElementById("tipo").value;
+      const categoria = document.getElementById("categoria").value;
+      const status = document.getElementById("statusLancamento").value || "pago";
+      const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value || "00:00";
+
+      if (!descricao || isNaN(valor) || valor <= 0 || !data) {
+        alert("Preencha descrição, valor maior que zero e data.");
+        return;
+      }
+
+      const novoMes = obterChaveMesDeData(data);
+      garantirMes(novoMes);
+
+      if (editId && editMes && Array.isArray(estado.meses[editMes])) {
+        const idx = estado.meses[editMes].findIndex(i => String(i.id) === String(editId));
+        if (idx !== -1) {
+          const itemAtualizado = {
+            ...estado.meses[editMes][idx],
+            descricao,
+            valor,
+            tipo,
+            categoria,
+            status,
+            data,
+            hora
+          };
+          estado.meses[editMes].splice(idx, 1);
+          estado.meses[novoMes].push(itemAtualizado);
+        }
+      } else {
+        estado.meses[novoMes].push({
+          id: Date.now() + Math.random(),
+          descricao,
+          valor,
+          tipo,
+          categoria,
+          status,
+          data,
+          hora
+        });
+      }
+
+      estado.mesSelecionado = novoMes;
+      salvarEstado();
+      resetarFormularioLancamento();
+      atualizarTudo();
+    }
+
+    function iniciarEdicaoLancamento(chaveMes, id) {
+      const lista = estado.meses[chaveMes] || [];
+      const item = lista.find(i => String(i.id) === String(id));
+      if (!item) return;
+
+      document.getElementById("editMesLancamento").value = chaveMes;
+      document.getElementById("editIdLancamento").value = item.id;
+      document.getElementById("tituloFormLancamento").textContent = "Editando lançamento";
+      document.getElementById("btnSalvarLancamento").textContent = "Salvar alterações";
+      document.getElementById("btnCancelarEdicaoLanc").style.display = "block";
+
+      document.getElementById("descricao").value = item.descricao;
+      document.getElementById("valor").value = item.valor;
+      document.getElementById("tipo").value = item.tipo;
+      document.getElementById("categoria").value = item.categoria;
+      document.getElementById("statusLancamento").value = item.status || "pago";
+      document.getElementById("data").value = item.data || "";
+      document.getElementById("hora").value = item.hora || "00:00";
+
+      document.getElementById("tituloFormLancamento").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function alternarStatusLancamento(chaveMes, id) {
+      const lista = estado.meses[chaveMes] || [];
+      const item = lista.find(i => String(i.id) === String(id));
+      if (!item) return;
+
+      item.status = (item.status || "pago") === "pago" ? "pendente" : "pago";
+      salvarEstado();
+      atualizarTudo();
+    }
+
+    function excluirLancamento(chaveMes, id) {
+      if (String(document.getElementById("editIdLancamento")?.value || "") === String(id)) {
+        resetarFormularioLancamento();
+      }
+      if (!Array.isArray(estado.meses[chaveMes])) return;
+      estado.meses[chaveMes] = estado.meses[chaveMes].filter(item => String(item.id) !== String(id));
+      salvarEstado();
+      atualizarTudo();
+    }
+
+    function atualizarMes() {
+      atualizarSeletorMes();
+      const itens = Array.isArray(estado.meses[estado.mesSelecionado])
+        ? estado.meses[estado.mesSelecionado]
+        : [];
+
+      let receitas = 0;
+      let despesas = 0;
+
+      itens.forEach(item => {
+        if (item.tipo === "receita") receitas += Number(item.valor) || 0;
+        else despesas += Number(item.valor) || 0;
+      });
+
+      const saldo = receitas - despesas;
+
+      const elRec = document.getElementById("totalReceitas");
+      const elDesp = document.getElementById("totalDespesas");
+      const elSaldo = document.getElementById("saldoMes");
+
+      if (elRec) elRec.textContent = formatarMoeda(receitas);
+      if (elDesp) elDesp.textContent = formatarMoeda(despesas);
+      if (elSaldo) {
+        elSaldo.textContent = formatarMoeda(saldo);
+        elSaldo.className = saldo >= 0 ? "saldo-pos" : "saldo-neg";
+      }
+
+      const lista = document.getElementById("listaLancamentos");
+      if (!lista) return;
+
+      if (itens.length === 0) {
+        lista.innerHTML = '<p class="vazio">Nenhum lançamento neste mês.</p>';
+        return;
+      }
+
+      const ordenados = [...itens].sort((a, b) => {
+        const dtA = `${a.data || ""} ${a.hora || "00:00"}`;
+        const dtB = `${b.data || ""} ${b.hora || "00:00"}`;
+        return dtA.localeCompare(dtB);
+      });
+
+      lista.innerHTML = "";
+      ordenados.forEach(item => {
+        const cor = item.tipo === "receita" ? "receita" : "despesa";
+        const sinal = item.tipo === "receita" ? "+" : "-";
+        const statusAtual = item.status || "pago";
+        const estaPago = statusAtual === "pago";
+
+        lista.innerHTML += `
+          <div class="item">
+            <div>
+              <strong>${item.descricao}</strong>
+              <span class="badge ${estaPago ? "badge-pago" : "badge-aberto"}">
+                ${estaPago ? (item.tipo === "receita" ? "Recebido" : "Pago") : "Pendente"}
+              </span>
+              <small>
+                <span class="badge">${item.categoria}</span>
+                ${formatarData(item.data)} às ${item.hora || "00:00"}
+              </small>
+            </div>
+            <div style="text-align:right;">
+              <strong class="${cor}">${sinal} ${formatarMoeda(item.valor)}</strong>
+              <br>
+              <button type="button" class="${estaPago ? "btn-pendente" : "btn-abater"}" onclick="alternarStatusLancamento('${estado.mesSelecionado}', '${item.id}')">
+                ${estaPago ? "Marcar pendente" : "Marcar pago"}
+              </button>
+              <button type="button" class="btn-editar" onclick="iniciarEdicaoLancamento('${estado.mesSelecionado}', '${item.id}')">
+                Editar
+              </button>
+              <button type="button" class="btn-excluir" onclick="excluirLancamento('${estado.mesSelecionado}', '${item.id}')">
+                Excluir
+              </button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function atualizarCategorias() {
+      const itens = Array.isArray(estado.meses[estado.mesSelecionado])
+        ? estado.meses[estado.mesSelecionado]
+        : [];
+      const tipoFiltro = document.getElementById("filtroTipoCat")?.value || "despesa";
+      const catFiltro = document.getElementById("filtroCatEspecifica")?.value || "TODAS";
+
+      const filtradosPorTipo = itens.filter(item =>
+        tipoFiltro === "todos" ? true : item.tipo === tipoFiltro
+      );
+
+      const totaisPorCat = {};
+      let somaGeral = 0;
+
+      filtradosPorTipo.forEach(item => {
+        const v = Number(item.valor) || 0;
+        const cat = item.categoria || "Outros";
+        totaisPorCat[cat] = (totaisPorCat[cat] || 0) + v;
+        somaGeral += v;
+      });
+
+      const resumoEl = document.getElementById("resumoCategorias");
+      const entradasCat = Object.entries(totaisPorCat).sort((a, b) => b[1] - a[1]);
+
+      if (resumoEl) {
+        if (entradasCat.length === 0) {
+          resumoEl.innerHTML = '<p class="vazio">Sem movimentações para este filtro neste mês.</p>';
+        } else {
+          resumoEl.innerHTML = "";
+          entradasCat.forEach(([cat, total]) => {
+            const pct = somaGeral > 0 ? Math.round((total / somaGeral) * 100) : 0;
+            resumoEl.innerHTML += `
+              <div class="cat-row" onclick="selecionarCategoriaNaLista('${cat}')">
+                <div class="cat-top">
+                  <span>${cat} (${pct}%)</span>
+                  <span>${formatarMoeda(total)}</span>
+                </div>
+                <div class="bar-bg">
+                  <div class="bar-fill" style="width:${pct}%"></div>
+                </div>
+              </div>
+            `;
+          });
+        }
+      }
+
+      const itensDetalhe = filtradosPorTipo.filter(item =>
+        catFiltro === "TODAS" ? true : item.categoria === catFiltro
+      );
+
+      const listaCatEl = document.getElementById("listaPorCategoria");
+      if (!listaCatEl) return;
+
+      if (itensDetalhe.length === 0) {
+        listaCatEl.innerHTML = '<p class="vazio">Nenhum item encontrado nessa categoria.</p>';
+        return;
+      }
+
+      const ordenadosDetalhe = [...itensDetalhe].sort((a, b) => {
+        const dtA = `${a.data || ""} ${a.hora || "00:00"}`;
+        const dtB = `${b.data || ""} ${b.hora || "00:00"}`;
+        return dtA.localeCompare(dtB);
+      });
+
+      listaCatEl.innerHTML = "";
+      ordenadosDetalhe.forEach(item => {
+        const cor = item.tipo === "receita" ? "receita" : "despesa";
+        const sinal = item.tipo === "receita" ? "+" : "-";
+        const estaPago = (item.status || "pago") === "pago";
+        listaCatEl.innerHTML += `
+          <div class="item">
+            <div>
+              <strong>${item.descricao}</strong>
+              <span class="badge ${estaPago ? "badge-pago" : "badge-aberto"}">
+                ${estaPago ? "Pago" : "Pendente"}
+              </span>
+              <small><span class="badge">${item.categoria}</span> ${formatarData(item.data)} às ${item.hora || "00:00"}</small>
+            </div>
+            <strong class="${cor}">${sinal} ${formatarMoeda(item.valor)}</strong>
+          </div>
+        `;
+      });
+    }
+
+    function selecionarCategoriaNaLista(cat) {
+      const elCat = document.getElementById("filtroCatEspecifica");
+      if (elCat) elCat.value = cat;
+      atualizarCategorias();
+    }
+
+    function resetarFormularioEmprestimo() {
+      document.getElementById("editIdEmprestimo").value = "";
+      document.getElementById("tituloFormEmprestimo").textContent = "Novo empréstimo / compromisso";
+      document.getElementById("btnSalvarEmprestimo").textContent = "Registrar empréstimo";
+      document.getElementById("btnCancelarEdicaoEmp").style.display = "none";
+      document.getElementById("pessoaEmprestimo").value = "";
+      document.getElementById("valorEmprestado").value = "";
+      document.getElementById("jurosPercentual").value = "";
+      document.getElementById("obsEmprestimo").value = "";
+      const hoje = new Date().toISOString().split("T")[0];
+      document.getElementById("dataEmprestimo").value = hoje;
+    }
+
+    function cancelarEdicaoEmprestimo() {
+      resetarFormularioEmprestimo();
+    }
+
+    function salvarEmprestimo() {
+      const editId = document.getElementById("editIdEmprestimo").value;
+      const pessoa = document.getElementById("pessoaEmprestimo").value.trim();
+      const valorPrincipal = parseFloat(document.getElementById("valorEmprestado").value);
+      const jurosPct = parseFloat(document.getElementById("jurosPercentual").value) || 0;
+      const data = document.getElementById("dataEmprestimo").value || new Date().toISOString().split("T")[0];
+      const obs = document.getElementById("obsEmprestimo").value.trim();
+
+      if (!pessoa || isNaN(valorPrincipal) || valorPrincipal <= 0) {
+        alert("Informe o nome/referência e um valor maior que zero.");
+        return;
+      }
+
+      const valorJuros = valorPrincipal * (jurosPct / 100);
+      const totalComJuros = valorPrincipal + valorJuros;
+
+      if (editId) {
+        const emp = estado.emprestimos.find(e => String(e.id) === String(editId));
+        if (emp) {
+          emp.pessoa = pessoa;
+          emp.valorPrincipal = valorPrincipal;
+          emp.jurosPct = jurosPct;
+          emp.valorJuros = valorJuros;
+          emp.totalComJuros = totalComJuros;
+          emp.valorPago = Math.min(Number(emp.valorPago || 0), totalComJuros);
+          emp.data = data;
+          emp.obs = obs;
+        }
+      } else {
+        estado.emprestimos.push({
+          id: Date.now() + Math.random(),
+          pessoa,
+          valorPrincipal,
+          jurosPct,
+          valorJuros,
+          totalComJuros,
+          valorPago: 0,
+          data,
+          obs
+        });
+      }
+
+      salvarEstado();
+      resetarFormularioEmprestimo();
+      atualizarEmprestimos();
+    }
+
+    function iniciarEdicaoEmprestimo(id) {
+      const emp = estado.emprestimos.find(e => String(e.id) === String(id));
+      if (!emp) return;
+
+      document.getElementById("editIdEmprestimo").value = emp.id;
+      document.getElementById("tituloFormEmprestimo").textContent = "Editando empréstimo / compromisso";
+      document.getElementById("btnSalvarEmprestimo").textContent = "Salvar alterações";
+      document.getElementById("btnCancelarEdicaoEmp").style.display = "block";
+
+      document.getElementById("pessoaEmprestimo").value = emp.pessoa;
+      document.getElementById("valorEmprestado").value = emp.valorPrincipal;
+      document.getElementById("jurosPercentual").value = emp.jurosPct || 0;
+      document.getElementById("dataEmprestimo").value = emp.data || "";
+      document.getElementById("obsEmprestimo").value = emp.obs || "";
+
+      document.getElementById("tituloFormEmprestimo").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function marcarComoPagoEmprestimo(id) {
+      const emp = estado.emprestimos.find(e => String(e.id) === String(id));
+      if (!emp) return;
+
+      emp.valorPago = emp.totalComJuros;
+      salvarEstado();
+      atualizarEmprestimos();
+    }
+
+    function registrarPagamentoEmprestimo(id) {
+      const emp = estado.emprestimos.find(e => String(e.id) === String(id));
+      if (!emp) return;
+
+      const restante = Math.max(0, emp.totalComJuros - (emp.valorPago || 0));
+      const entrada = prompt(`Quanto foi pago agora? (Falta: ${formatarMoeda(restante)})`, restante.toFixed(2));
+      if (entrada === null) return;
+
+      const valorPg = parseFloat(entrada.replace(",", "."));
+      if (isNaN(valorPg) || valorPg <= 0) {
+        alert("Valor inválido.");
+        return;
+      }
+
+      emp.valorPago = Math.min(emp.totalComJuros, (emp.valorPago || 0) + valorPg);
+      salvarEstado();
+      atualizarEmprestimos();
+    }
+
+    function excluirEmprestimo(id) {
+      if (String(document.getElementById("editIdEmprestimo")?.value || "") === String(id)) {
+        resetarFormularioEmprestimo();
+      }
+      estado.emprestimos = estado.emprestimos.filter(e => String(e.id) !== String(id));
+      salvarEstado();
+      atualizarEmprestimos();
+    }
+
+    function atualizarEmprestimos() {
+      const emprestimos = Array.isArray(estado.emprestimos) ? estado.emprestimos : [];
+      let totalEmp = 0;
+      let totalRec = 0;
+      let totalFalta = 0;
+
+      emprestimos.forEach(e => {
+        const pago = Number(e.valorPago || 0);
+        const falta = Math.max(0, Number(e.totalComJuros) - pago);
+        totalEmp += Number(e.valorPrincipal) || 0;
+        totalRec += Number(e.totalComJuros) || 0;
+        totalFalta += falta;
+      });
+
+      const elEmp = document.getElementById("totalEmprestado");
+      const elRec = document.getElementById("totalReceberEmprestimo");
+      const elFalta = document.getElementById("totalFaltaReceber");
+
+      if (elEmp) elEmp.textContent = formatarMoeda(totalEmp);
+      if (elRec) elRec.textContent = formatarMoeda(totalRec);
+      if (elFalta) elFalta.textContent = formatarMoeda(totalFalta);
+
+      const lista = document.getElementById("listaEmprestimos");
+      if (!lista) return;
+
+      if (emprestimos.length === 0) {
+        lista.innerHTML = '<p class="vazio">Nenhum empréstimo ou compromisso registrado.</p>';
+        return;
+      }
+
+      const ordenados = [...emprestimos].sort((a, b) =>
+        String(a.data || "").localeCompare(String(b.data || ""))
+      );
+
+      const gruposPorMes = {};
+      const ordemMeses = [];
+      ordenados.forEach(e => {
+        const chaveMes = obterChaveMesDeData(e.data);
