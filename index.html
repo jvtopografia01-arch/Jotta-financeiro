@@ -5,13 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#3b28cc">
   <title>Meu Financeiro</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
     :root {
       --primary: #3b28cc;
       --primary-dark: #28199c;
@@ -23,48 +18,26 @@
       --red: #c62828;
       --border: #e3e5f0;
     }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-    }
-
+    body { margin: 0; background: var(--bg); color: var(--text); }
     header {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: #fff;
-      padding: 20px 16px;
+      padding: 18px 16px;
       text-align: center;
     }
-
-    header h1 {
-      margin: 0 0 4px;
-      font-size: 24px;
-    }
-
-    header p {
-      margin: 0;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 14px 14px 40px;
-    }
-
+    header h1 { margin: 0 0 4px; font-size: 22px; }
+    header p { margin: 0; font-size: 13px; opacity: 0.92; }
+    main { max-width: 760px; margin: 0 auto; padding: 14px 14px 48px; }
     .nav-tabs {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
       margin-bottom: 14px;
     }
-
     .tab-btn {
       width: 100%;
       margin: 0;
-      padding: 11px 8px;
+      padding: 11px 6px;
       border-radius: 10px;
       border: 1px solid var(--border);
       background: #fff;
@@ -73,21 +46,13 @@
       font-size: 13px;
       cursor: pointer;
     }
-
     .tab-btn.active {
       background: var(--primary);
       color: #fff;
       border-color: var(--primary);
     }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
     .month-bar {
       display: flex;
       align-items: center;
@@ -99,63 +64,29 @@
       border: 1px solid var(--border);
       margin-bottom: 14px;
     }
-
-    .month-bar select {
-      width: auto;
-      margin: 0;
-      padding: 8px 12px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
+    .month-bar select { width: auto; margin: 0; padding: 8px 12px; font-size: 14px; font-weight: bold; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
     .card {
       background: var(--card);
       border-radius: 14px;
       padding: 14px 10px;
       text-align: center;
       border: 1px solid var(--border);
-      box-shadow: 0 2px 8px #00000008;
     }
-
-    .card span {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: bold;
-    }
-
-    .card strong {
-      display: block;
-      margin-top: 6px;
-      font-size: 17px;
-    }
-
+    .card span { font-size: 12px; color: var(--muted); font-weight: bold; }
+    .card strong { display: block; margin-top: 6px; font-size: 16px; }
     .receita { color: var(--green); }
     .despesa { color: var(--red); }
     .saldo-pos { color: var(--primary); }
     .saldo-neg { color: var(--red); }
-
     section {
       background: var(--card);
       padding: 16px;
       border-radius: 14px;
       margin-bottom: 14px;
       border: 1px solid var(--border);
-      box-shadow: 0 2px 8px #00000008;
     }
-
-    h2 {
-      color: var(--primary);
-      font-size: 18px;
-      margin: 0 0 12px;
-    }
-
+    h2 { color: var(--primary); font-size: 18px; margin: 0 0 12px; }
     .month-group-title {
       margin: 14px 0 6px;
       padding: 6px 10px;
@@ -166,15 +97,7 @@
       font-weight: bold;
       color: var(--primary-dark);
     }
-
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-      font-size: 13px;
-      color: #333;
-    }
-
+    label { display: block; margin-top: 10px; font-weight: bold; font-size: 13px; color: #333; }
     input, select, button {
       width: 100%;
       padding: 11px 12px;
@@ -185,90 +108,17 @@
       background: #fff;
       color: var(--text);
     }
-
-    button {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      margin-top: 14px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: var(--primary-dark);
-    }
-
-    .row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .quick-box {
-      background: #f6f5ff;
-      border: 1px dashed var(--primary);
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 14px;
-    }
-
-    .quick-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .quick-actions button {
-      margin-top: 0;
-      padding: 10px;
-      font-size: 14px;
-    }
-
-    .btn-secondary {
-      background: #4b4e6d;
-    }
-
-    .btn-secondary:hover {
-      background: #363850;
-    }
-
-    .btn-excluir {
-      width: auto;
-      padding: 6px 10px;
-      margin: 4px 0 0;
-      background: var(--red);
-      font-size: 12px;
-      border-radius: 7px;
-    }
-
-    .btn-abater {
-      width: auto;
-      padding: 6px 10px;
-      margin: 4px 5px 0 0;
-      background: var(--green);
-      font-size: 12px;
-      border-radius: 7px;
-    }
-
-    .btn-pendente {
-      width: auto;
-      padding: 6px 10px;
-      margin: 4px 5px 0 0;
-      background: #b45309;
-      font-size: 12px;
-      border-radius: 7px;
-    }
-
-    .btn-editar {
-      width: auto;
-      padding: 6px 10px;
-      margin: 4px 5px 0 0;
-      background: #2563eb;
-      font-size: 12px;
-      border-radius: 7px;
-    }
-
+    button { background: var(--primary); color: #fff; border: none; margin-top: 14px; font-weight: bold; cursor: pointer; }
+    button:hover { background: var(--primary-dark); }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .quick-box { background: #f6f5ff; border: 1px dashed var(--primary); padding: 12px; border-radius: 10px; margin-bottom: 14px; }
+    .quick-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .quick-actions button { margin-top: 0; padding: 10px; font-size: 14px; }
+    .btn-secondary { background: #4b4e6d; }
+    .btn-excluir { width: auto; padding: 6px 10px; margin: 4px 0 0; background: var(--red); font-size: 12px; border-radius: 7px; }
+    .btn-abater { width: auto; padding: 6px 10px; margin: 4px 5px 0 0; background: var(--green); font-size: 12px; border-radius: 7px; }
+    .btn-pendente { width: auto; padding: 6px 10px; margin: 4px 5px 0 0; background: #b45309; font-size: 12px; border-radius: 7px; }
+    .btn-editar { width: auto; padding: 6px 10px; margin: 4px 5px 0 0; background: #2563eb; font-size: 12px; border-radius: 7px; }
     .item {
       border-bottom: 1px solid var(--border);
       padding: 12px 0;
@@ -277,18 +127,8 @@
       align-items: center;
       gap: 10px;
     }
-
-    .item:last-child {
-      border-bottom: none;
-    }
-
-    .item small {
-      display: block;
-      color: var(--muted);
-      margin-top: 3px;
-      font-size: 12px;
-    }
-
+    .item:last-child { border-bottom: none; }
+    .item small { display: block; color: var(--muted); margin-top: 3px; font-size: 12px; }
     .badge {
       display: inline-block;
       padding: 2px 8px;
@@ -299,67 +139,21 @@
       color: var(--primary);
       margin-right: 5px;
     }
-
-    .badge-pago {
-      background: #dcfce7;
-      color: var(--green);
-    }
-
-    .badge-aberto {
-      background: #fee2e2;
-      color: var(--red);
-    }
-
-    .cat-row {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-    }
-
-    .cat-row:last-child {
-      border-bottom: none;
-    }
-
-    .cat-top {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .bar-bg {
-      height: 8px;
-      background: #eceef7;
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-
-    .bar-fill {
-      height: 100%;
-      background: var(--primary);
-      border-radius: 999px;
-    }
-
-    .vazio {
-      color: var(--muted);
-      text-align: center;
-      padding: 12px;
-      font-size: 14px;
-    }
-
+    .badge-pago { background: #dcfce7; color: var(--green); }
+    .badge-aberto { background: #fee2e2; color: var(--red); }
+    .cat-row { padding: 10px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+    .cat-row:last-child { border-bottom: none; }
+    .cat-top { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; }
+    .bar-bg { height: 8px; background: #eceef7; border-radius: 999px; overflow: hidden; margin-top: 6px; }
+    .bar-fill { height: 100%; background: var(--primary); border-radius: 999px; }
+    .vazio { color: var(--muted); text-align: center; padding: 12px; font-size: 14px; }
     @media (max-width: 560px) {
-      .nav-tabs {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .cards, .row-2 {
-        grid-template-columns: 1fr;
-      }
+      .nav-tabs { grid-template-columns: repeat(2, 1fr); }
+      .cards, .row-2 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>Meu Financeiro</h1>
     <p>Meses, categorias, empréstimos e lançamentos rápidos</p>
@@ -367,10 +161,10 @@
 
   <main>
     <div class="nav-tabs">
-      <button type="button" class="tab-btn active" onclick="abrirAba('mes', this)">Mês</button>
-      <button type="button" class="tab-btn" onclick="abrirAba('categorias', this)">Categorias</button>
-      <button type="button" class="tab-btn" onclick="abrirAba('emprestimos', this)">Empréstimos</button>
-      <button type="button" class="tab-btn" onclick="abrirAba('dados', this)">Backup</button>
+      <button type="button" class="tab-btn active" data-tab="mes" onclick="abrirAba('mes')">Mês</button>
+      <button type="button" class="tab-btn" data-tab="categorias" onclick="abrirAba('categorias')">Categorias</button>
+      <button type="button" class="tab-btn" data-tab="emprestimos" onclick="abrirAba('emprestimos')">Empréstimos</button>
+      <button type="button" class="tab-btn" data-tab="dados" onclick="abrirAba('dados')">Backup</button>
     </div>
 
     <!-- ABA 1: MÊS -->
@@ -580,6 +374,7 @@
           <button type="button" onclick="exportarBackup()">Exportar backup (JSON)</button>
           <button type="button" class="btn-secondary" onclick="document.getElementById('arquivoBackup').click()">Importar backup</button>
         </div>
+        <button type="button" class="btn-editar" style="width:100%;margin-top:10px;" onclick="tentarMigrarDadosAntigos()">Tentar puxar dados antigos do navegador</button>
         <input type="file" id="arquivoBackup" accept=".json" style="display:none;" onchange="importarBackup(event)">
       </section>
 
@@ -595,13 +390,13 @@
 
     function obterMesAtualChave() {
       const d = new Date();
-      const ano = d.getFullYear();
-      const mes = String(d.getMonth() + 1).padStart(2, "0");
-      return `${ano}-${mes}`;
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
     }
 
     function obterChaveMesDeData(dataStr) {
-      if (typeof dataStr === "string" && dataStr.length >= 7) return dataStr.slice(0, 7);
+      if (typeof dataStr === "string" && /^\d{4}-\d{2}/.test(dataStr)) {
+        return dataStr.slice(0, 7);
+      }
       return obterMesAtualChave();
     }
 
@@ -620,45 +415,88 @@
       try {
         const raw = localStorage.getItem(chave);
         if (!raw) return padrao;
-        const parsed = JSON.parse(raw);
-        return parsed ?? padrao;
+        return JSON.parse(raw);
       } catch {
         return padrao;
       }
+    }
+
+    function construirEstadoDeAntigos() {
+      const mesAtual = obterMesAtualChave();
+      const meses = { [mesAtual]: [] };
+      const emprestimos = [];
+
+      const antigosLanc = parseJsonSeguro("lancamentos", []);
+      if (Array.isArray(antigosLanc)) {
+        antigosLanc.forEach((item, idx) => {
+          if (!item || typeof item !== "object") return;
+          const chave = obterChaveMesDeData(item.data);
+          if (!meses[chave]) meses[chave] = [];
+          meses[chave].push({
+            id: String(item.id || `ant_${idx}_${Date.now()}`),
+            descricao: String(item.descricao || "Lançamento"),
+            valor: Number(item.valor) || 0,
+            tipo: item.tipo === "receita" ? "receita" : "despesa",
+            categoria: String(item.categoria || "Outros"),
+            status: item.status === "pendente" ? "pendente" : "pago",
+            data: String(item.data || `${chave}-01`),
+            hora: String(item.hora || "00:00")
+          });
+        });
+      }
+
+      const antigasDiv = parseJsonSeguro("dividas", []);
+      if (Array.isArray(antigasDiv)) {
+        antigasDiv.forEach((d, idx) => {
+          if (!d || typeof d !== "object") return;
+          const principal = Number(d.valor) || 0;
+          emprestimos.push({
+            id: String(d.id || `div_${idx}_${Date.now()}`),
+            pessoa: String(d.nome || "Dívida/Compromisso"),
+            valorPrincipal: principal,
+            jurosPct: 0,
+            valorJuros: 0,
+            totalComJuros: principal,
+            valorPago: 0,
+            data: String(d.vencimento || `${mesAtual}-01`),
+            obs: "Migrado de dívidas"
+          });
+        });
+      }
+
+      return { mesSelecionado: mesAtual, meses, emprestimos };
     }
 
     function carregarEstadoInicial() {
       const mesAtual = obterMesAtualChave();
       const salvo = parseJsonSeguro(STORAGE_KEY, null);
 
-      if (salvo && typeof salvo === "object") {
+      if (salvo && typeof salvo === "object" && salvo.meses && typeof salvo.meses === "object") {
         const mesesLimpos = {};
-        if (salvo.meses && typeof salvo.meses === "object") {
-          Object.entries(salvo.meses).forEach(([k, arr]) => {
-            if (Array.isArray(arr)) {
-              mesesLimpos[k] = arr.filter(i => i && typeof i === "object").map(i => ({
-                id: i.id ?? (Date.now() + Math.random()),
-                descricao: String(i.descricao || "Sem descrição"),
-                valor: Number(i.valor) || 0,
-                tipo: i.tipo === "receita" ? "receita" : "despesa",
-                categoria: String(i.categoria || "Outros"),
-                status: i.status === "pendente" ? "pendente" : "pago",
-                data: String(i.data || `${mesAtual}-01`),
-                hora: String(i.hora || "00:00")
-              }));
-            }
-          });
-        }
+        Object.entries(salvo.meses).forEach(([k, arr]) => {
+          if (Array.isArray(arr)) {
+            mesesLimpos[k] = arr.filter(i => i && typeof i === "object").map((i, idx) => ({
+              id: String(i.id || `${k}_${idx}_${Date.now()}`),
+              descricao: String(i.descricao || "Sem descrição"),
+              valor: Number(i.valor) || 0,
+              tipo: i.tipo === "receita" ? "receita" : "despesa",
+              categoria: String(i.categoria || "Outros"),
+              status: i.status === "pendente" ? "pendente" : "pago",
+              data: String(i.data || `${k}-01`),
+              hora: String(i.hora || "00:00")
+            }));
+          }
+        });
         if (!mesesLimpos[mesAtual]) mesesLimpos[mesAtual] = [];
 
         const emprestimosLimpos = Array.isArray(salvo.emprestimos)
-          ? salvo.emprestimos.filter(e => e && typeof e === "object").map(e => {
+          ? salvo.emprestimos.filter(e => e && typeof e === "object").map((e, idx) => {
               const principal = Number(e.valorPrincipal) || 0;
               const jurosPct = Number(e.jurosPct) || 0;
               const valorJuros = Number(e.valorJuros ?? (principal * (jurosPct / 100))) || 0;
               const totalComJuros = Number(e.totalComJuros ?? (principal + valorJuros)) || 0;
               return {
-                id: e.id ?? (Date.now() + Math.random()),
+                id: String(e.id || `emp_${idx}_${Date.now()}`),
                 pessoa: String(e.pessoa || "Sem nome"),
                 valorPrincipal: principal,
                 jurosPct,
@@ -671,43 +509,11 @@
             })
           : [];
 
-        const mesSel = (typeof salvo.mesSelecionado === "string" && mesesLimpos[salvo.mesSelecionado])
-          ? salvo.mesSelecionado
-          : mesAtual;
-
-        return {
-          mesSelecionado: mesSel,
-          meses: mesesLimpos,
-          emprestimos: emprestimosLimpos
-        };
+        const mesSel = mesesLimpos[salvo.mesSelecionado] ? salvo.mesSelecionado : mesAtual;
+        return { mesSelecionado: mesSel, meses: mesesLimpos, emprestimos: emprestimosLimpos };
       }
 
-      const antigosLanc = parseJsonSeguro("lancamentos", []);
-      const meses = {};
-      if (Array.isArray(antigosLanc)) {
-        antigosLanc.forEach(item => {
-          if (!item || typeof item !== "object") return;
-          const chave = obterChaveMesDeData(item.data);
-          if (!meses[chave]) meses[chave] = [];
-          meses[chave].push({
-            id: item.id ?? (Date.now() + Math.random()),
-            descricao: String(item.descricao || "Sem descrição"),
-            valor: Number(item.valor) || 0,
-            tipo: item.tipo === "receita" ? "receita" : "despesa",
-            categoria: String(item.categoria || "Outros"),
-            status: item.status === "pendente" ? "pendente" : "pago",
-            data: String(item.data || `${mesAtual}-01`),
-            hora: String(item.hora || "00:00")
-          });
-        });
-      }
-      if (!meses[mesAtual]) meses[mesAtual] = [];
-
-      return {
-        mesSelecionado: mesAtual,
-        meses,
-        emprestimos: []
-      };
+      return construirEstadoDeAntigos();
     }
 
     let estado = carregarEstadoInicial();
@@ -716,39 +522,54 @@
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
       } catch (e) {
-        console.error("Erro ao salvar:", e);
+        console.error(e);
       }
     }
 
-    function formatarMoeda(valor) {
-      return Number(valor || 0).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
+    function tentarMigrarDadosAntigos() {
+      const migrado = construirEstadoDeAntigos();
+      const temLanc = Object.values(migrado.meses).some(arr => arr.length > 0);
+      const temEmp = migrado.emprestimos.length > 0;
+      if (!temLanc && !temEmp) {
+        alert("Não encontrei registros antigos salvos neste navegador.");
+        return;
+      }
+      if (!confirm("Deseja importar os lançamentos e dívidas antigos encontrados neste navegador?")) return;
+      Object.entries(migrado.meses).forEach(([mes, arr]) => {
+        if (!estado.meses[mes]) estado.meses[mes] = [];
+        estado.meses[mes].push(...arr);
       });
+      estado.emprestimos.push(...migrado.emprestimos);
+      salvarEstado();
+      atualizarTudo();
+      alert("Dados antigos carregados!");
+    }
+
+    function formatarMoeda(valor) {
+      return Number(valor || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
     function formatarData(data) {
       if (!data) return "";
-      const partes = String(data).split("-");
-      if (partes.length !== 3) return String(data);
-      return `${partes[2]}/${partes[1]}/${partes[0]}`;
+      const p = String(data).split("-");
+      return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : String(data);
     }
 
     function preencherDataHoraPadrao() {
       const agora = new Date();
-      const ano = agora.getFullYear();
-      const mes = String(agora.getMonth() + 1).padStart(2, "0");
-      const dia = String(agora.getDate()).padStart(2, "0");
-      const hora = String(agora.getHours()).padStart(2, "0");
-      const min = String(agora.getMinutes()).padStart(2, "0");
+      const y = agora.getFullYear();
+      const m = String(agora.getMonth() + 1).padStart(2, "0");
+      const d = String(agora.getDate()).padStart(2, "0");
+      const hh = String(agora.getHours()).padStart(2, "0");
+      const mm = String(agora.getMinutes()).padStart(2, "0");
 
       const elData = document.getElementById("data");
       const elHora = document.getElementById("hora");
       const elEmpData = document.getElementById("dataEmprestimo");
 
-      if (elData) elData.value = `${ano}-${mes}-${dia}`;
-      if (elHora) elHora.value = `${hora}:${min}`;
-      if (elEmpData) elEmpData.value = `${ano}-${mes}-${dia}`;
+      if (elData && !elData.value) elData.value = `${y}-${m}-${d}`;
+      if (elHora && !elHora.value) elHora.value = `${hh}:${mm}`;
+      if (elEmpData && !elEmpData.value) elEmpData.value = `${y}-${m}-${d}`;
     }
 
     function ajustarStatusPadraoPorTipo() {
@@ -756,23 +577,21 @@
       if (editId) return;
       const tipo = document.getElementById("tipo")?.value;
       const elStatus = document.getElementById("statusLancamento");
-      if (elStatus) {
-        elStatus.value = tipo === "despesa" ? "pendente" : "pago";
-      }
+      if (elStatus) elStatus.value = tipo === "despesa" ? "pendente" : "pago";
     }
 
-    function abrirAba(nomeAba, btn) {
+    function abrirAba(nomeAba) {
       document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.tab === nomeAba);
+      });
       const painel = document.getElementById(`aba-${nomeAba}`);
       if (painel) painel.classList.add("active");
-      if (btn) btn.classList.add("active");
       atualizarTudo();
     }
 
     function garantirMes(chave) {
-      if (!chave) return;
-      if (!Array.isArray(estado.meses[chave])) {
+      if (chave && !Array.isArray(estado.meses[chave])) {
         estado.meses[chave] = [];
       }
     }
@@ -794,11 +613,11 @@
         });
       }
 
-      const nomeFormatado = formatarChaveMes(estado.mesSelecionado);
+      const nome = formatarChaveMes(estado.mesSelecionado);
       const lblLista = document.getElementById("labelMesLista");
       const lblCat = document.getElementById("labelMesCat");
-      if (lblLista) lblLista.textContent = nomeFormatado;
-      if (lblCat) lblCat.textContent = nomeFormatado;
+      if (lblLista) lblLista.textContent = nome;
+      if (lblCat) lblCat.textContent = nome;
     }
 
     function mudarMesSelecionado() {
@@ -812,39 +631,36 @@
 
     function detectarCategoriaPorTexto(texto) {
       const t = texto.toLowerCase();
-      if (t.includes("gasolina") || t.includes("alcool") || t.includes("álcool") || t.includes("diesel") || t.includes("uber") || t.includes("onibus") || t.includes("ônibus") || t.includes("carro") || t.includes("moto")) return "Transporte";
-      if (t.includes("mercado") || t.includes("lanche") || t.includes("almoco") || t.includes("almoço") || t.includes("jantar") || t.includes("comida") || t.includes("cafe") || t.includes("café") || t.includes("bebida")) return "Alimentação";
-      if (t.includes("salario") || t.includes("salário") || t.includes("pagamento")) return "Salário";
-      if (t.includes("extra") || t.includes("freela") || t.includes("comissao") || t.includes("comissão") || t.includes("venda")) return "Renda extra";
-      if (t.includes("casa") || t.includes("aluguel") || t.includes("luz") || t.includes("agua") || t.includes("água") || t.includes("obra") || t.includes("material")) return "Moradia";
-      if (t.includes("escola") || t.includes("faculdade") || t.includes("curso")) return "Educação";
-      if (t.includes("divida") || t.includes("dívida") || t.includes("parcela")) return "Dívida";
-      if (t.includes("roupa") || t.includes("tenis") || t.includes("tênis") || t.includes("celular") || t.includes("compra")) return "Compras";
+      if (/(gasolina|alcool|álcool|diesel|uber|onibus|ônibus|carro|moto)/.test(t)) return "Transporte";
+      if (/(mercado|lanche|almoco|almoço|jantar|comida|cafe|café|bebida)/.test(t)) return "Alimentação";
+      if (/(salario|salário|pagamento)/.test(t)) return "Salário";
+      if (/(extra|freela|comissao|comissão|venda)/.test(t)) return "Renda extra";
+      if (/(casa|aluguel|luz|agua|água|obra|material)/.test(t)) return "Moradia";
+      if (/(escola|faculdade|curso)/.test(t)) return "Educação";
+      if (/(divida|dívida|parcela)/.test(t)) return "Dívida";
+      if (/(roupa|tenis|tênis|celular|compra)/.test(t)) return "Compras";
       return "Outros";
     }
 
     function interpretarFrase(lancarDireto) {
-      const frase = (document.getElementById("textoRapido")?.value || "").trim();
+      const inputFrase = document.getElementById("textoRapido");
+      const frase = (inputFrase?.value || "").trim();
       if (!frase) {
         alert("Digite uma frase rápida, ex.: gastei 100 de gasolina.");
         return;
       }
-
-      const matchValor = frase.match(/(\d+(?:[.,]\d{1,2})?)/);
-      if (!matchValor) {
+      const match = frase.match(/(\d+(?:[.,]\d{1,2})?)/);
+      if (!match) {
         alert("Não encontrei um valor numérico na frase.");
         return;
       }
-
-      const valor = parseFloat(matchValor[1].replace(",", "."));
+      const valor = parseFloat(match[1].replace(",", "."));
       const lower = frase.toLowerCase();
-      const ehReceita = lower.includes("recebi") || lower.includes("ganhei") || lower.includes("salario") || lower.includes("salário") || lower.includes("entrou");
-      const tipo = ehReceita ? "receita" : "despesa";
+      const tipo = /(recebi|ganhei|salario|salário|entrou)/.test(lower) ? "receita" : "despesa";
       const categoria = detectarCategoriaPorTexto(frase);
-
       const descLimpa = frase
         .replace(/r\$\s*/gi, "")
-        .replace(matchValor[0], "")
+        .replace(match[0], "")
         .replace(/\b(gastei|paguei|comprei|coloquei|recebi|ganhei|de|do|da|em|no|na)\b/gi, " ")
         .replace(/\s+/g, " ")
         .trim();
@@ -858,7 +674,7 @@
 
       if (lancarDireto) {
         salvarLancamento();
-        document.getElementById("textoRapido").value = "";
+        inputFrase.value = "";
       }
     }
 
@@ -872,6 +688,8 @@
       document.getElementById("valor").value = "";
       document.getElementById("tipo").value = "despesa";
       document.getElementById("statusLancamento").value = "pendente";
+      document.getElementById("data").value = "";
+      document.getElementById("hora").value = "";
       preencherDataHoraPadrao();
     }
 
@@ -882,7 +700,6 @@
     function salvarLancamento() {
       const editMes = document.getElementById("editMesLancamento").value;
       const editId = document.getElementById("editIdLancamento").value;
-
       const descricao = document.getElementById("descricao").value.trim();
       const valor = parseFloat(document.getElementById("valor").value);
       const tipo = document.getElementById("tipo").value;
@@ -902,29 +719,14 @@
       if (editId && editMes && Array.isArray(estado.meses[editMes])) {
         const idx = estado.meses[editMes].findIndex(i => String(i.id) === String(editId));
         if (idx !== -1) {
-          const itemAtualizado = {
-            ...estado.meses[editMes][idx],
-            descricao,
-            valor,
-            tipo,
-            categoria,
-            status,
-            data,
-            hora
-          };
+          const atualizado = { ...estado.meses[editMes][idx], descricao, valor, tipo, categoria, status, data, hora };
           estado.meses[editMes].splice(idx, 1);
-          estado.meses[novoMes].push(itemAtualizado);
+          estado.meses[novoMes].push(atualizado);
         }
       } else {
         estado.meses[novoMes].push({
-          id: Date.now() + Math.random(),
-          descricao,
-          valor,
-          tipo,
-          categoria,
-          status,
-          data,
-          hora
+          id: `lanc_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+          descricao, valor, tipo, categoria, status, data, hora
         });
       }
 
@@ -935,8 +737,7 @@
     }
 
     function iniciarEdicaoLancamento(chaveMes, id) {
-      const lista = estado.meses[chaveMes] || [];
-      const item = lista.find(i => String(i.id) === String(id));
+      const item = (estado.meses[chaveMes] || []).find(i => String(i.id) === String(id));
       if (!item) return;
 
       document.getElementById("editMesLancamento").value = chaveMes;
@@ -944,7 +745,6 @@
       document.getElementById("tituloFormLancamento").textContent = "Editando lançamento";
       document.getElementById("btnSalvarLancamento").textContent = "Salvar alterações";
       document.getElementById("btnCancelarEdicaoLanc").style.display = "block";
-
       document.getElementById("descricao").value = item.descricao;
       document.getElementById("valor").value = item.valor;
       document.getElementById("tipo").value = item.tipo;
@@ -952,15 +752,12 @@
       document.getElementById("statusLancamento").value = item.status || "pago";
       document.getElementById("data").value = item.data || "";
       document.getElementById("hora").value = item.hora || "00:00";
-
       document.getElementById("tituloFormLancamento").scrollIntoView({ behavior: "smooth" });
     }
 
     function alternarStatusLancamento(chaveMes, id) {
-      const lista = estado.meses[chaveMes] || [];
-      const item = lista.find(i => String(i.id) === String(id));
+      const item = (estado.meses[chaveMes] || []).find(i => String(i.id) === String(id));
       if (!item) return;
-
       item.status = (item.status || "pago") === "pago" ? "pendente" : "pago";
       salvarEstado();
       atualizarTudo();
@@ -971,59 +768,44 @@
         resetarFormularioLancamento();
       }
       if (!Array.isArray(estado.meses[chaveMes])) return;
-      estado.meses[chaveMes] = estado.meses[chaveMes].filter(item => String(item.id) !== String(id));
+      estado.meses[chaveMes] = estado.meses[chaveMes].filter(i => String(i.id) !== String(id));
       salvarEstado();
       atualizarTudo();
     }
 
     function atualizarMes() {
       atualizarSeletorMes();
-      const itens = Array.isArray(estado.meses[estado.mesSelecionado])
-        ? estado.meses[estado.mesSelecionado]
-        : [];
+      const itens = Array.isArray(estado.meses[estado.mesSelecionado]) ? estado.meses[estado.mesSelecionado] : [];
 
       let receitas = 0;
       let despesas = 0;
-
       itens.forEach(item => {
         if (item.tipo === "receita") receitas += Number(item.valor) || 0;
         else despesas += Number(item.valor) || 0;
       });
 
       const saldo = receitas - despesas;
-
-      const elRec = document.getElementById("totalReceitas");
-      const elDesp = document.getElementById("totalDespesas");
+      document.getElementById("totalReceitas").textContent = formatarMoeda(receitas);
+      document.getElementById("totalDespesas").textContent = formatarMoeda(despesas);
       const elSaldo = document.getElementById("saldoMes");
-
-      if (elRec) elRec.textContent = formatarMoeda(receitas);
-      if (elDesp) elDesp.textContent = formatarMoeda(despesas);
-      if (elSaldo) {
-        elSaldo.textContent = formatarMoeda(saldo);
-        elSaldo.className = saldo >= 0 ? "saldo-pos" : "saldo-neg";
-      }
+      elSaldo.textContent = formatarMoeda(saldo);
+      elSaldo.className = saldo >= 0 ? "saldo-pos" : "saldo-neg";
 
       const lista = document.getElementById("listaLancamentos");
-      if (!lista) return;
-
       if (itens.length === 0) {
         lista.innerHTML = '<p class="vazio">Nenhum lançamento neste mês.</p>';
         return;
       }
 
-      const ordenados = [...itens].sort((a, b) => {
-        const dtA = `${a.data || ""} ${a.hora || "00:00"}`;
-        const dtB = `${b.data || ""} ${b.hora || "00:00"}`;
-        return dtA.localeCompare(dtB);
-      });
+      const ordenados = [...itens].sort((a, b) =>
+        `${a.data || ""} ${a.hora || "00:00"}`.localeCompare(`${b.data || ""} ${b.hora || "00:00"}`)
+      );
 
       lista.innerHTML = "";
       ordenados.forEach(item => {
         const cor = item.tipo === "receita" ? "receita" : "despesa";
         const sinal = item.tipo === "receita" ? "+" : "-";
-        const statusAtual = item.status || "pago";
-        const estaPago = statusAtual === "pago";
-
+        const estaPago = (item.status || "pago") === "pago";
         lista.innerHTML += `
           <div class="item">
             <div>
@@ -1031,10 +813,7 @@
               <span class="badge ${estaPago ? "badge-pago" : "badge-aberto"}">
                 ${estaPago ? (item.tipo === "receita" ? "Recebido" : "Pago") : "Pendente"}
               </span>
-              <small>
-                <span class="badge">${item.categoria}</span>
-                ${formatarData(item.data)} às ${item.hora || "00:00"}
-              </small>
+              <small><span class="badge">${item.categoria}</span> ${formatarData(item.data)} às ${item.hora || "00:00"}</small>
             </div>
             <div style="text-align:right;">
               <strong class="${cor}">${sinal} ${formatarMoeda(item.valor)}</strong>
@@ -1042,12 +821,8 @@
               <button type="button" class="${estaPago ? "btn-pendente" : "btn-abater"}" onclick="alternarStatusLancamento('${estado.mesSelecionado}', '${item.id}')">
                 ${estaPago ? "Marcar pendente" : "Marcar pago"}
               </button>
-              <button type="button" class="btn-editar" onclick="iniciarEdicaoLancamento('${estado.mesSelecionado}', '${item.id}')">
-                Editar
-              </button>
-              <button type="button" class="btn-excluir" onclick="excluirLancamento('${estado.mesSelecionado}', '${item.id}')">
-                Excluir
-              </button>
+              <button type="button" class="btn-editar" onclick="iniciarEdicaoLancamento('${estado.mesSelecionado}', '${item.id}')">Editar</button>
+              <button type="button" class="btn-excluir" onclick="excluirLancamento('${estado.mesSelecionado}', '${item.id}')">Excluir</button>
             </div>
           </div>
         `;
@@ -1055,71 +830,54 @@
     }
 
     function atualizarCategorias() {
-      const itens = Array.isArray(estado.meses[estado.mesSelecionado])
-        ? estado.meses[estado.mesSelecionado]
-        : [];
+      const itens = Array.isArray(estado.meses[estado.mesSelecionado]) ? estado.meses[estado.mesSelecionado] : [];
       const tipoFiltro = document.getElementById("filtroTipoCat")?.value || "despesa";
       const catFiltro = document.getElementById("filtroCatEspecifica")?.value || "TODAS";
 
-      const filtradosPorTipo = itens.filter(item =>
-        tipoFiltro === "todos" ? true : item.tipo === tipoFiltro
-      );
+      const filtrados = itens.filter(item => tipoFiltro === "todos" ? true : item.tipo === tipoFiltro);
+      const totais = {};
+      let soma = 0;
 
-      const totaisPorCat = {};
-      let somaGeral = 0;
-
-      filtradosPorTipo.forEach(item => {
+      filtrados.forEach(item => {
         const v = Number(item.valor) || 0;
-        const cat = item.categoria || "Outros";
-        totaisPorCat[cat] = (totaisPorCat[cat] || 0) + v;
-        somaGeral += v;
+        const c = item.categoria || "Outros";
+        totais[c] = (totais[c] || 0) + v;
+        soma += v;
       });
 
       const resumoEl = document.getElementById("resumoCategorias");
-      const entradasCat = Object.entries(totaisPorCat).sort((a, b) => b[1] - a[1]);
-
-      if (resumoEl) {
-        if (entradasCat.length === 0) {
-          resumoEl.innerHTML = '<p class="vazio">Sem movimentações para este filtro neste mês.</p>';
-        } else {
-          resumoEl.innerHTML = "";
-          entradasCat.forEach(([cat, total]) => {
-            const pct = somaGeral > 0 ? Math.round((total / somaGeral) * 100) : 0;
-            resumoEl.innerHTML += `
-              <div class="cat-row" onclick="selecionarCategoriaNaLista('${cat}')">
-                <div class="cat-top">
-                  <span>${cat} (${pct}%)</span>
-                  <span>${formatarMoeda(total)}</span>
-                </div>
-                <div class="bar-bg">
-                  <div class="bar-fill" style="width:${pct}%"></div>
-                </div>
+      const entradas = Object.entries(totais).sort((a, b) => b[1] - a[1]);
+      if (entradas.length === 0) {
+        resumoEl.innerHTML = '<p class="vazio">Sem movimentações para este filtro neste mês.</p>';
+      } else {
+        resumoEl.innerHTML = "";
+        entradas.forEach(([cat, total]) => {
+          const pct = soma > 0 ? Math.round((total / soma) * 100) : 0;
+          resumoEl.innerHTML += `
+            <div class="cat-row" onclick="selecionarCategoriaNaLista('${cat}')">
+              <div class="cat-top">
+                <span>${cat} (${pct}%)</span>
+                <span>${formatarMoeda(total)}</span>
               </div>
-            `;
-          });
-        }
+              <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div>
+            </div>
+          `;
+        });
       }
 
-      const itensDetalhe = filtradosPorTipo.filter(item =>
-        catFiltro === "TODAS" ? true : item.categoria === catFiltro
-      );
-
+      const detalhe = filtrados.filter(item => catFiltro === "TODAS" ? true : item.categoria === catFiltro);
       const listaCatEl = document.getElementById("listaPorCategoria");
-      if (!listaCatEl) return;
-
-      if (itensDetalhe.length === 0) {
+      if (detalhe.length === 0) {
         listaCatEl.innerHTML = '<p class="vazio">Nenhum item encontrado nessa categoria.</p>';
         return;
       }
 
-      const ordenadosDetalhe = [...itensDetalhe].sort((a, b) => {
-        const dtA = `${a.data || ""} ${a.hora || "00:00"}`;
-        const dtB = `${b.data || ""} ${b.hora || "00:00"}`;
-        return dtA.localeCompare(dtB);
-      });
+      const ordenados = [...detalhe].sort((a, b) =>
+        `${a.data || ""} ${a.hora || "00:00"}`.localeCompare(`${b.data || ""} ${b.hora || "00:00"}`)
+      );
 
       listaCatEl.innerHTML = "";
-      ordenadosDetalhe.forEach(item => {
+      ordenados.forEach(item => {
         const cor = item.tipo === "receita" ? "receita" : "despesa";
         const sinal = item.tipo === "receita" ? "+" : "-";
         const estaPago = (item.status || "pago") === "pago";
@@ -1127,9 +885,7 @@
           <div class="item">
             <div>
               <strong>${item.descricao}</strong>
-              <span class="badge ${estaPago ? "badge-pago" : "badge-aberto"}">
-                ${estaPago ? "Pago" : "Pendente"}
-              </span>
+              <span class="badge ${estaPago ? "badge-pago" : "badge-aberto"}">${estaPago ? "Pago" : "Pendente"}</span>
               <small><span class="badge">${item.categoria}</span> ${formatarData(item.data)} às ${item.hora || "00:00"}</small>
             </div>
             <strong class="${cor}">${sinal} ${formatarMoeda(item.valor)}</strong>
@@ -1139,8 +895,7 @@
     }
 
     function selecionarCategoriaNaLista(cat) {
-      const elCat = document.getElementById("filtroCatEspecifica");
-      if (elCat) elCat.value = cat;
+      document.getElementById("filtroCatEspecifica").value = cat;
       atualizarCategorias();
     }
 
@@ -1153,8 +908,7 @@
       document.getElementById("valorEmprestado").value = "";
       document.getElementById("jurosPercentual").value = "";
       document.getElementById("obsEmprestimo").value = "";
-      const hoje = new Date().toISOString().split("T")[0];
-      document.getElementById("dataEmprestimo").value = hoje;
+      document.getElementById("dataEmprestimo").value = new Date().toISOString().split("T")[0];
     }
 
     function cancelarEdicaoEmprestimo() {
@@ -1191,15 +945,8 @@
         }
       } else {
         estado.emprestimos.push({
-          id: Date.now() + Math.random(),
-          pessoa,
-          valorPrincipal,
-          jurosPct,
-          valorJuros,
-          totalComJuros,
-          valorPago: 0,
-          data,
-          obs
+          id: `emp_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+          pessoa, valorPrincipal, jurosPct, valorJuros, totalComJuros, valorPago: 0, data, obs
         });
       }
 
@@ -1216,20 +963,17 @@
       document.getElementById("tituloFormEmprestimo").textContent = "Editando empréstimo / compromisso";
       document.getElementById("btnSalvarEmprestimo").textContent = "Salvar alterações";
       document.getElementById("btnCancelarEdicaoEmp").style.display = "block";
-
       document.getElementById("pessoaEmprestimo").value = emp.pessoa;
       document.getElementById("valorEmprestado").value = emp.valorPrincipal;
       document.getElementById("jurosPercentual").value = emp.jurosPct || 0;
       document.getElementById("dataEmprestimo").value = emp.data || "";
       document.getElementById("obsEmprestimo").value = emp.obs || "";
-
       document.getElementById("tituloFormEmprestimo").scrollIntoView({ behavior: "smooth" });
     }
 
     function marcarComoPagoEmprestimo(id) {
       const emp = estado.emprestimos.find(e => String(e.id) === String(id));
       if (!emp) return;
-
       emp.valorPago = emp.totalComJuros;
       salvarEstado();
       atualizarEmprestimos();
@@ -1238,17 +982,14 @@
     function registrarPagamentoEmprestimo(id) {
       const emp = estado.emprestimos.find(e => String(e.id) === String(id));
       if (!emp) return;
-
       const restante = Math.max(0, emp.totalComJuros - (emp.valorPago || 0));
       const entrada = prompt(`Quanto foi pago agora? (Falta: ${formatarMoeda(restante)})`, restante.toFixed(2));
       if (entrada === null) return;
-
       const valorPg = parseFloat(entrada.replace(",", "."));
       if (isNaN(valorPg) || valorPg <= 0) {
         alert("Valor inválido.");
         return;
       }
-
       emp.valorPago = Math.min(emp.totalComJuros, (emp.valorPago || 0) + valorPg);
       salvarEstado();
       atualizarEmprestimos();
@@ -1277,17 +1018,11 @@
         totalFalta += falta;
       });
 
-      const elEmp = document.getElementById("totalEmprestado");
-      const elRec = document.getElementById("totalReceberEmprestimo");
-      const elFalta = document.getElementById("totalFaltaReceber");
-
-      if (elEmp) elEmp.textContent = formatarMoeda(totalEmp);
-      if (elRec) elRec.textContent = formatarMoeda(totalRec);
-      if (elFalta) elFalta.textContent = formatarMoeda(totalFalta);
+      document.getElementById("totalEmprestado").textContent = formatarMoeda(totalEmp);
+      document.getElementById("totalReceberEmprestimo").textContent = formatarMoeda(totalRec);
+      document.getElementById("totalFaltaReceber").textContent = formatarMoeda(totalFalta);
 
       const lista = document.getElementById("listaEmprestimos");
-      if (!lista) return;
-
       if (emprestimos.length === 0) {
         lista.innerHTML = '<p class="vazio">Nenhum empréstimo ou compromisso registrado.</p>';
         return;
@@ -1297,7 +1032,97 @@
         String(a.data || "").localeCompare(String(b.data || ""))
       );
 
-      const gruposPorMes = {};
+      const grupos = {};
       const ordemMeses = [];
       ordenados.forEach(e => {
         const chaveMes = obterChaveMesDeData(e.data);
+        if (!grupos[chaveMes]) {
+          grupos[chaveMes] = [];
+          ordemMeses.push(chaveMes);
+        }
+        grupos[chaveMes].push(e);
+      });
+
+      lista.innerHTML = "";
+      ordemMeses.forEach(chaveMes => {
+        lista.innerHTML += `<div class="month-group-title">${formatarChaveMes(chaveMes)}</div>`;
+        grupos[chaveMes].forEach(e => {
+          const pago = Number(e.valorPago || 0);
+          const falta = Math.max(0, Number(e.totalComJuros) - pago);
+          const quitado = falta <= 0.009;
+          lista.innerHTML += `
+            <div class="item">
+              <div>
+                <strong>${e.pessoa}</strong>
+                <span class="badge ${quitado ? "badge-pago" : "badge-aberto"}">${quitado ? "Pago" : "Em aberto"}</span>
+                <small>Data: <strong>${formatarData(e.data)}</strong> • Base: ${formatarMoeda(e.valorPrincipal)} • Juros: ${e.jurosPct || 0}% (${formatarMoeda(e.valorJuros || 0)})</small>
+                <small>Total c/ juros: <strong>${formatarMoeda(e.totalComJuros)}</strong> • Pago: ${formatarMoeda(pago)} ${e.obs ? "• " + e.obs : ""}</small>
+              </div>
+              <div style="text-align:right;">
+                <strong class="${quitado ? "receita" : "despesa"}">${quitado ? "Quitado" : "Falta " + formatarMoeda(falta)}</strong>
+                <br>
+                ${!quitado ? `<button type="button" class="btn-abater" onclick="marcarComoPagoEmprestimo('${e.id}')">Marcar paga</button>` : ""}
+                ${!quitado ? `<button type="button" class="btn-abater" onclick="registrarPagamentoEmprestimo('${e.id}')">Abater</button>` : ""}
+                <button type="button" class="btn-editar" onclick="iniciarEdicaoEmprestimo('${e.id}')">Editar</button>
+                <button type="button" class="btn-excluir" onclick="excluirEmprestimo('${e.id}')">Excluir</button>
+              </div>
+            </div>
+          `;
+        });
+      });
+    }
+
+    function exportarBackup() {
+      const blob = new Blob([JSON.stringify(estado, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `meu-financeiro-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importarBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const dados = JSON.parse(e.target.result);
+          if (!dados.meses || !Array.isArray(dados.emprestimos)) {
+            alert("Arquivo de backup inválido.");
+            return;
+          }
+          estado = dados;
+          salvarEstado();
+          atualizarTudo();
+          alert("Backup restaurado com sucesso!");
+        } catch {
+          alert("Erro ao ler o arquivo JSON.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function apagarTudo() {
+      if (!confirm("Tem certeza que deseja apagar todos os meses, categorias e empréstimos?")) return;
+      const atual = obterMesAtualChave();
+      estado = { mesSelecionado: atual, meses: { [atual]: [] }, emprestimos: [] };
+      salvarEstado();
+      resetarFormularioEmprestimo();
+      resetarFormularioLancamento();
+      atualizarTudo();
+    }
+
+    function atualizarTudo() {
+      try { atualizarMes(); } catch (e) { console.error("Erro mes:", e); }
+      try { atualizarCategorias(); } catch (e) { console.error("Erro categorias:", e); }
+      try { atualizarEmprestimos(); } catch (e) { console.error("Erro emprestimos:", e); }
+    }
+
+    preencherDataHoraPadrao();
+    ajustarStatusPadraoPorTipo();
+    atualizarTudo();
+  </script>
+</body>
+</html>
